@@ -18,14 +18,27 @@ Establish a stable testing ground with unmodified models before introducing
 custom kernels.
 
 - **Standard compression baselines** to benchmark against:
-  - *SnapKV*: sliding-window + heavy-hitter retention.
-  - *PyramidKV*: layer-wise budget allocation.
+  - *SnapKV*: observation-window importance + pooling; prompt compression.
+  - *PyramidKV*: SnapKV importance with a per-layer (pyramidal) budget.
+  - *H2O*: Heavy-Hitter Oracle; accumulated attention with online eviction.
 - **Metric harness** over LongBench: perplexity (PPL), wall-clock latency,
-  peak GPU memory allocated. Implemented in `benchmarks/run_benchmark.py`.
+  peak GPU memory allocated. Implemented in `benchmarks/run_benchmark.py`
+  (hot/cold) and `benchmarks/run_baselines.py` (baselines).
 
-> Status: the metric harness and the hot/cold framework are implemented. The
-> SnapKV / PyramidKV baselines are on the roadmap for direct side-by-side
-> comparison.
+> Status: implemented. The hot/cold framework, the metric harness, and all three
+> compression baselines (`src/hotcold_kv/baselines/`) are in place; the baseline
+> tensor logic is covered by `tests/test_baselines.py`.
+
+### Baseline design notes
+
+All three baselines share one integration path: a per-layer `Cache` whose stored
+keys/values are post-RoPE (so a retained token keeps its positional encoding after
+compression), plus an attention monkeypatch that computes attention internally —
+giving full control over masking rather than depending on the model's causal-mask
+machinery. Grouped-query attention is handled by averaging query heads into their
+key/value group when scoring, and eviction indices are per-kv-head. Budgets always
+retain a recent window; SnapKV/PyramidKV compress once at prefill, while H2O keeps
+a running attention accumulator and re-evicts to the budget every decode step.
 
 ## Phase 2 — Core engine
 
@@ -85,3 +98,5 @@ are used to find keys for `t+k`.
   · code: <https://github.com/FasterDecoding/SnapKV>
 - **PyramidKV** — *Dynamic KV Cache Compression based on Pyramidal Information
   Funneling.* <https://openreview.net/pdf?id=jZVNmDiU86>
+- **H2O** — *H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large
+  Language Models.* NeurIPS 2023. <https://arxiv.org/abs/2306.14048>

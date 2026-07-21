@@ -6,6 +6,7 @@ from transformers.models.llama import modeling_llama
 from transformers.cache_utils import Cache
 from .datatypes import _canon_br_2d, _canon_kv_4d
 from .kernels import triton_evict_attention_forward
+from .cache import HotColdLayer
 
 
 

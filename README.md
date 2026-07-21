@@ -57,6 +57,7 @@ Core components (`src/hotcold_kv/`):
 | `cache.py`      | `HotColdLayer` (a `CacheLayerMixin`) holding the hot compressed KV and staging evicted tokens; `build_hotcold_cache`. |
 | `kernels.py`    | Triton fused attention + eviction-scoring kernel used to pick which tokens to evict. |
 | `datatypes.py`  | `RetrievedKV` / `EvictedKV` containers and shape-canonicalisation helpers. |
+| `baselines/`    | Standalone SnapKV / PyramidKV / H2O compression baselines (own cache + attention patch) for head-to-head comparison. |
 
 ## Install
 
@@ -124,6 +125,32 @@ Results are written to a CSV. The benchmark expects the LongBench JSONL files at
 the path in `LONGBENCH_LOCAL_PATH` (defaults to the Kaggle dataset layout,
 `/kaggle/input/longbench-json`); point it at your local copy to run elsewhere.
 
+## Compression baselines
+
+`src/hotcold_kv/baselines/` implements three standard KV-cache compression methods
+to benchmark the hot/cold framework against. Each is a self-contained KV
+compressor (its own `Cache` + attention monkeypatch, independent of the hot/cold
+`KVController`):
+
+| Method      | Idea | Budget |
+|-------------|------|--------|
+| **SnapKV**    | Score prompt tokens by attention from a recent observation window, pool, keep top-k + recent window. Compresses the prompt at prefill. | flat per layer |
+| **PyramidKV** | Same importance scoring as SnapKV, but allocates a larger budget to early layers and a smaller one to deep layers (pyramidal). | per-layer |
+| **H2O**       | *Heavy-Hitter Oracle*: accumulate attention mass across all queries, keep the heavy hitters + recent window, evicting online during decode. | flat per layer |
+
+Run the comparison harness (same LongBench PPL / latency / memory metrics):
+
+```bash
+python benchmarks/run_baselines.py
+```
+
+The tensor logic (scoring, pooling, GQA reduction, per-head eviction, pyramid
+budgets) is covered by CPU unit tests that need only torch:
+
+```bash
+PYTHONPATH=src python tests/test_baselines.py
+```
+
 ## Design targets
 
 - GPU KV memory well below a full cache at long context (8k–16k+ tokens),
@@ -132,7 +159,7 @@ the path in `LONGBENCH_LOCAL_PATH` (defaults to the Kaggle dataset layout,
 
 by tuning the hot-cache budget, the eviction top-k ratio and the look-ahead
 retrieval window. See [`docs/design.md`](docs/design.md) for the full phased
-design and the reference papers (SnapKV, PyramidKV).
+design and the reference papers (SnapKV, PyramidKV, H2O).
 
 ## License
 
