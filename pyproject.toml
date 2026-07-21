@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hotcold-kv-cache"
+version = "0.1.0"
+description = "Two-tier (GPU hot / CPU cold) KV-cache management with asynchronous look-ahead retrieval for long-context LLM inference."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "torch",
+    "transformers==4.57.3",
+    "faiss-cpu",
+    "triton",
+    "numpy",
+    "pandas",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

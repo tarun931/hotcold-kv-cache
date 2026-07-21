@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.ipynb_checkpoints/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Benchmark outputs
+*.csv
+
+# Editor / tooling
+.claude/
+.vscode/
+.idea/
+.DS_Store
+
+# Local model / dataset caches
+.cache/
+*.safetensors
+*.bin
