@@ -153,7 +153,7 @@ PYTHONPATH=src python tests/test_baselines.py
 
 ## Design targets
 
-- GPU KV memory well below a full cache at long context (8k–16k+ tokens),
+- GPU KV memory well below a full cache at long context 
 - minimal accuracy degradation versus the uncompressed baseline,
 - retrieval touching only a small fraction of cold tokens per step,
 
