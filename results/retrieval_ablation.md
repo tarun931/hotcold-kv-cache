@@ -64,6 +64,10 @@ best everywhere, but the gap narrows from 1.5-4.5% to 0.28-2.95%.
 **The finding:** how long a retrieved token stays in attention matters more than the retrieval
 itself. Fetching the right tokens is not enough if they are dropped a step later.
 
+At 16k on gov_report the gain holds at a similar size (-1.40%, -0.96% and -0.70% at budgets 512,
+1024 and 2048), but held hot/cold then beats PyramidKV only at budget 512; see
+[gov_report at 16k](gov_report_16k_results.md).
+
 ## Cost
 
 Held latency is about 2.24-2.32 s, roughly 10% over attend-once and 30% over the uncompressed
