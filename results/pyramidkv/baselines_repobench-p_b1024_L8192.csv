@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+pyramidkv,repobench-p,1024,8192,500,2.347530352019498,1.0995736929859392,1.5918336091041565,17.292002201080322

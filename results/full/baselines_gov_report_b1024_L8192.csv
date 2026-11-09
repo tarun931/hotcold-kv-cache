@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb,ppl_delta_vs_full,ppl_pct_vs_full
+full,gov_report,full,8192,200,5.247470880586207,2.074676102421042,1.7183569085597992,18.991312503814697,0.0,0.0

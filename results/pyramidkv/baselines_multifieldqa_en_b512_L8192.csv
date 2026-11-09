@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+pyramidkv,multifieldqa_en,512,8192,150,7.838649997888142,4.870415670348398,1.5614251693089802,17.158892154693604

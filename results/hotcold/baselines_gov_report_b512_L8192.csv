@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb,hc_evicted_tokens,hc_retrieval_launched,hc_prefetch_launched,hc_prefetch_ready,hc_injection_used
+hotcold,gov_report,512,8192,200,6.126473452351166,2.5701161111312185,2.0231961512565615,17.181435108184814,41330560,102400,96004,96004,96004

@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+snapkv,multifieldqa_en,1024,8192,150,6.794691020854359,4.384255514306634,1.5956033245722452,17.280090808868408

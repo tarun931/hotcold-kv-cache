@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+snapkv,repobench-p,1024,8192,500,2.2764433680548337,1.0486423897187334,1.5926938409805298,17.28235673904419

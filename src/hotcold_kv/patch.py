@@ -162,7 +162,12 @@ def install_monkeypatch(enable_debug: bool = True):
         q_post, k_post = modeling_llama.apply_rotary_pos_emb(q_pre, k_pre, cos, sin)
 
         # per-layer retrieval pipeline
-        kvctrl.update_query_window(self.layer_idx, q_pre)
+        # The query pool is only read when a retrieval launches, every
+        # window_size steps. If the pool is shorter than the window, a prefill
+        # entry is always pushed out before the first launch, and keeping it
+        # would hold a full (B,Hq,T,D) query per layer for nothing.
+        if q_len == 1 or kvctrl.query_pool_size >= kvctrl.window_size:
+            kvctrl.update_query_window(self.layer_idx, q_pre)
         kvctrl.maybe_launch_async_retrieval(self.layer_idx)
         kvctrl.maybe_prefetch_to_gpu(self.layer_idx, device=device, dtype=dtype)
 
@@ -179,11 +184,20 @@ def install_monkeypatch(enable_debug: bool = True):
         else:
             pos_new = torch.arange(hot_prev_len, hot_prev_len + q_len, device=device, dtype=torch.long).unsqueeze(0).expand(bsz, -1)
 
+        # This step's own keys/values, captured before the cache update. Prefill
+        # attention must use these: the update may compress, and a multi-token
+        # forward needs its full uncompressed prompt.
+        k_cur, v_cur = k_post, v
+
         # update hot cache
         if past_key_values is not None and isinstance(past_key_values, Cache):
             layer = past_key_values.layers[self.layer_idx]
             if isinstance(layer, HotColdLayer):
-                layer.set_last_query_post(q_post)
+                # Compression scores keys with at most the last recent_size
+                # queries; store a copy of just those so the full prefill
+                # query is freed after this layer.
+                r = kvctrl.recent_size
+                layer.set_last_query_post(q_post if q_len <= r else q_post[:, :, -r:, :].clone())
 
             # NOTE: call our HotColdLayer.update(layer_idx=...)
             if isinstance(layer, HotColdLayer):
@@ -212,6 +226,7 @@ def install_monkeypatch(enable_debug: bool = True):
         kvctrl.last_injected_len = 0
         inj_len = 0
         rr = None
+        mem = None   # (k_mem, v_mem, pos, valid): retrieved tokens attended this step
 
         # inject only on decode AND only if there are valid retrieved tokens
         if q_len == 1:
@@ -224,20 +239,33 @@ def install_monkeypatch(enable_debug: bool = True):
 
                 k_mem = _rotate_k_with_pos(rr.k_pre, rr.pos, head_dim=head_dim)  # (B,Hk,R,D)
                 k_mem = _canon_kv_4d(k_mem, "k_mem")
+                mem = (k_mem, rr.v, rr.pos, rr.valid)
+                if kvctrl.hold_retrieved:
+                    # Keep this set for every decode step until the next
+                    # retrieval lands, instead of attending to it once.
+                    kvctrl.held_mem[self.layer_idx] = mem
+                    kvctrl.dbg["injection_new"] += 1
+            else:
+                if rr.valid.numel() > 0 and not bool(rr.valid.any().item()):
+                    kvctrl.dbg["injection_skipped_no_valid"] += 1
+                if kvctrl.hold_retrieved:
+                    mem = kvctrl.held_mem[self.layer_idx]
 
+            if mem is not None:
+                k_mem, v_mem = mem[0], mem[1]
                 inj_len = int(k_mem.shape[2])
                 kvctrl.last_injected_len = inj_len
                 kvctrl.dbg["injection_used"] += 1
 
                 k_post = torch.cat([k_mem, k_post], dim=2)
-                v      = torch.cat([rr.v,  v],     dim=2)
-            elif q_len == 1 and rr is not None and rr.valid.numel() > 0 and not bool(rr.valid.any().item()):
-                kvctrl.dbg["injection_skipped_no_valid"] += 1
+                v      = torch.cat([v_mem, v],     dim=2)
 
-        # Triton decode
-        if q_len == 1 and hidden_states.is_cuda:
-            kvctrl.dbg["triton_decode_calls"] += 1
+        n_rep = num_heads // num_kv_heads
 
+        if q_len == 1:
+            # Decode: attend over the whole (compressed) cache plus any injected
+            # tokens. keep_mask switches off empty retrieval slots and anything
+            # not strictly in the past.
             S_total = int(k_post.shape[2])
             S_base = S_total - inj_len
             keep_base = torch.ones((bsz, S_base), device=device, dtype=torch.bool)
@@ -247,39 +275,56 @@ def install_monkeypatch(enable_debug: bool = True):
                     cur_pos = int(cache_position.reshape(-1)[-1].item())
                 else:
                     cur_pos = hot_prev_len
-                keep_mem = rr.valid & (rr.pos <= cur_pos)
+                mem_pos, mem_valid = mem[2], mem[3]
+                keep_mem = mem_valid & (mem_pos <= cur_pos)
                 keep_mask = torch.cat([keep_mem, keep_base], dim=1)
             else:
                 keep_mask = keep_base
 
-            n_rep = num_heads // num_kv_heads
-            attn_out_b1hd, _ = triton_evict_attention_forward(
-                query=q_post,
-                key=k_post,
-                value=v,
-                attention_mask=keep_mask,
-                num_key_value_groups=n_rep,
-                scaling=(1.0 / math.sqrt(head_dim)),
-                dropout=0.0,
-                block_s=64,
-            )
-            attn_out = attn_out_b1hd.transpose(1, 2).contiguous()  # (B,Hq,1,D)
-
-        # Prefill fallback
-        else:
-            kvctrl.dbg["triton_prefill_fallback"] += 1
-
-            if num_kv_heads != num_heads:
-                k_rep = modeling_llama.repeat_kv(k_post, num_heads // num_kv_heads)
-                v_rep = modeling_llama.repeat_kv(v,      num_heads // num_kv_heads)
+            if hidden_states.is_cuda:
+                kvctrl.dbg["triton_decode_calls"] += 1
+                attn_out_b1hd, _ = triton_evict_attention_forward(
+                    query=q_post,
+                    key=k_post,
+                    value=v,
+                    attention_mask=keep_mask,
+                    num_key_value_groups=n_rep,
+                    scaling=(1.0 / math.sqrt(head_dim)),
+                    dropout=0.0,
+                    block_s=64,
+                )
+                attn_out = attn_out_b1hd.transpose(1, 2).contiguous()  # (B,Hq,1,D)
             else:
-                k_rep, v_rep = k_post, v
+                # CPU fallback (debugging only): the same computation via SDPA.
+                k_rep = modeling_llama.repeat_kv(k_post, n_rep) if n_rep > 1 else k_post
+                v_rep = modeling_llama.repeat_kv(v, n_rep) if n_rep > 1 else v
+                attn_out = F.scaled_dot_product_attention(
+                    q_post, k_rep, v_rep,
+                    attn_mask=keep_mask[:, None, None, :],
+                    dropout_p=0.0,
+                    is_causal=False,
+                )
 
+        else:
+            # Prefill: attend over this step's own keys/values (k_cur, v_cur),
+            # never the cache the update returned, which may already be
+            # compressed. Causality: under SDPA, HuggingFace passes
+            # attention_mask=None for an unpadded batch and expects the
+            # attention to apply is_causal itself; is_causal=False there would
+            # make prefill bidirectional and leak future tokens.
+            kvctrl.dbg["triton_prefill_fallback"] += 1
+            if hot_prev_len > 0:
+                raise NotImplementedError(
+                    "multi-token forward on a non-empty hot cache (chunked prefill) "
+                    "is not supported by the hot/cold patch"
+                )
+            k_rep = modeling_llama.repeat_kv(k_cur, n_rep) if n_rep > 1 else k_cur
+            v_rep = modeling_llama.repeat_kv(v_cur, n_rep) if n_rep > 1 else v_cur
             attn_out = F.scaled_dot_product_attention(
                 q_post, k_rep, v_rep,
                 attn_mask=attention_mask,
                 dropout_p=0.0,
-                is_causal=False,
+                is_causal=attention_mask is None,
             )
 
         attn_out = attn_out.transpose(1, 2).contiguous().view(bsz, q_len, -1)

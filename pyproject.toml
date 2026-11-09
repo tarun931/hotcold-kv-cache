@@ -10,10 +10,10 @@ readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 dependencies = [
-    "torch",
+    "torch==2.5.1",
     "transformers==4.57.3",
+    "accelerate",
     "faiss-cpu",
-    "triton",
     "numpy",
     "pandas",
 ]

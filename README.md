@@ -1,165 +1,170 @@
 # hotcold-kv-cache
 
-A long-context LLM inference framework that decouples the attention KV cache into
-two tiers:
+A two-tier KV cache for long-context LLM inference, benchmarked head-to-head against
+SnapKV, PyramidKV and H2O on LongBench with Llama-3.1-8B.
 
-- a **hot, compressed cache on the GPU**, kept under a fixed token budget by a
-  dynamic eviction policy, and
-- a **cold, full-resolution store on the CPU**, indexed with Faiss so that any
-  previously evicted token can be recalled by similarity search.
+- A **hot, compressed cache on the GPU**, held under a fixed token budget by a
+  SnapKV-style eviction policy.
+- A **cold, full-resolution store on the CPU**, indexed with FAISS, so any evicted
+  token can be recalled by similarity search.
+- An **asynchronous look-ahead retrieval** thread that uses recent query states to
+  fetch the tokens upcoming steps are likely to need, overlapping the CPU→GPU copy
+  with the decode step instead of stalling on it.
 
-The two tiers are bridged by an **asynchronous look-ahead retrieval** mechanism:
-a background worker uses recently generated query states to pre-fetch the KV
-pairs that upcoming tokens are likely to attend to, so the CPU→GPU transfer is
-overlapped with generation instead of stalling it.
+![Architecture](docs/figures/fig1_architecture.png)
 
-The goal is to hold GPU KV memory well below the cost of a full cache while
-keeping accuracy on long-context tasks close to the uncompressed baseline.
+## Headline result
 
-## Why
+The project's clearest finding is an ablation, not a win over the baselines:
+**how long a retrieved token stays in attention matters far more than the retrieval
+itself.**
 
-Standard KV-cache offloading moves cold tokens to the CPU and pays a
-synchronous transfer penalty every time an old token is needed again. The idea
-here is to *predict* which cold tokens will be needed a few steps ahead — using
-the trajectory of the last few query states — and stage them onto the GPU
-before the model asks for them, hiding the transfer latency behind the GPU's own
-decode step.
+Three variants, identical except for what happens to tokens fetched from the CPU
+tier. LongBench `gov_report`, 200 samples, 8k context, budget 512:
 
-## Architecture
+| Variant | PPL | Latency |
+|---|---|---|
+| No retrieval (`LOOKAHEAD_K=0`) | 6.139 | 1.601 s |
+| Attend once — the obvious design | 6.126 | 2.023 s |
+| **Held until replaced** (`HOLD_RETRIEVED=1`) | **6.039** | 2.249 s |
 
-```
-                 ┌─────────────────────────── GPU ───────────────────────────┐
-   input token   │                                                            │
-  ───────────────▶  Patched LlamaAttention.forward                           │
-                 │      │                                                      │
-                 │      │  compress when hot cache > budget                    │
-                 │      ▼                                                      │
-                 │  HotColdLayer  ──evicted (K_pre, V, pos)──┐                 │
-                 │  (hot compressed KV)                      │                 │
-                 │      ▲                                    │ non-blocking    │
-                 │      │ inject retrieved KV (transient)    │ D2H             │
-                 └──────┼────────────────────────────────────┼────────────────┘
-                        │                                     ▼
-                 ┌──────┼──────────────────────────── CPU ────────────────────┐
-                 │      │        KVController (background retrieval thread)     │
-                 │      │            │                                          │
-                 │  look-ahead query │  Faiss index (key cache as vectors)      │
-                 │      └────────────▶  ring buffer of (Key, Value) tensors     │
-                 └──────────────────────────────────────────────────────────────┘
-```
+Retrieval originally fired every 16 decode steps and the fetched tokens were
+attended at exactly one step, then dropped. That bought 0.09–0.21% perplexity for
+roughly 25% more latency — almost nothing. Keeping the same tokens in attention
+until the next retrieval replaces them helps in **all twelve** dataset/budget
+configurations, by up to 3.18%, and is worth about seven times as much.
 
-Core components (`src/hotcold_kv/`):
+The no-retrieval control also locates the latency cost: with retrieval off, hot/cold
+runs at 1.601 s, *faster* than the uncompressed reference at 1.718 s. The overhead is
+the retrieval path, not the Triton kernel or the eviction logic.
 
-| Module          | Responsibility |
-|-----------------|----------------|
-| `patch.py`      | Monkeypatches `LlamaAttention.forward`; RoPE re-rotation of retrieved keys; global wiring (`install_monkeypatch`, `set_active_*`). |
-| `controller.py` | `KVController` — the cold ring buffer, Faiss index, look-ahead query predictor and the asynchronous retrieval thread. |
-| `cache.py`      | `HotColdLayer` (a `CacheLayerMixin`) holding the hot compressed KV and staging evicted tokens; `build_hotcold_cache`. |
-| `kernels.py`    | Triton fused attention + eviction-scoring kernel used to pick which tokens to evict. |
-| `datatypes.py`  | `RetrievedKV` / `EvictedKV` containers and shape-canonicalisation helpers. |
-| `baselines/`    | Standalone SnapKV / PyramidKV / H2O compression baselines (own cache + attention patch) for head-to-head comparison. |
+Full numbers: [`results/retrieval_ablation.md`](results/retrieval_ablation.md).
+
+## Benchmark results
+
+Llama-3.1-8B (fp16) on one NVIDIA L40S 48 GB, LongBench prompts cut at 8192 tokens.
+Perplexity is scored over the last 256 prompt tokens against the compressed cache,
+with an identical protocol for every method. Latency is 63 decode steps after
+prefill. Peak memory is `torch.cuda.max_memory_allocated()` over prefill plus a
+64-token generation — **total** device memory, including the 14.96 GiB of weights,
+not the KV cache alone.
+
+`gov_report`, 200 samples, budget 512:
+
+| Method | PPL | Δ vs full | Latency (s) | Peak mem (GiB) |
+|---|---|---|---|---|
+| full (uncompressed) | 5.247 | 0.0% | 1.718 | 18.99 |
+| **snapkv** | **5.942** | +13.2% | 1.562 | 17.15 |
+| pyramidkv | 6.352 | +21.1% | 1.560 | 17.16 |
+| h2o | 6.430 | +22.5% | 1.751 | 17.33 |
+| hotcold (held) | 6.039 | +15.1% | 2.249 | 17.19 |
+
+Per-dataset tables, each with every budget and variant:
+
+| Dataset | Samples | Context |
+|---|---|---|
+| [multifieldqa_en](results/multifieldqa_en_results.md) | 150 | 8k |
+| [hotpotqa](results/hotpotqa_results.md) | 200 | 8k |
+| [gov_report](results/gov_report_results.md) | 200 | 8k |
+| [repobench-p](results/repobench-p_results.md) | 500 | 8k |
+| [gov_report at 16k](results/gov_report_16k_results.md) | 200 | 16k |
+
+**Where this stands honestly.** SnapKV is the strongest method at every budget on
+every dataset tested. Held hot/cold is second in 11 of 12 configurations, ahead of
+PyramidKV and well ahead of H2O, but it costs about 30% more decode latency than the
+uncompressed run and saves no more GPU memory than the other compressed methods. At
+8k the KV cache is only about 1 GiB of an 19 GiB footprint, which is why the memory
+column barely separates the methods; at 16k the saving against `full` roughly doubles,
+from about 1.8 GiB to 3.8 GiB.
+
+The CPU tier gives a small, consistent, measurable gain (0.6–1.6% over the
+no-retrieval control) at a 33–40% latency cost. Perplexity over continuous documents
+rewards keeping broadly relevant recent context, which the GPU tier already does well.
+A needle-in-a-haystack style task, where one specific distant fact has been evicted,
+is the test that would show whether the retrieval tier earns its keep.
+
+## How it works
+
+The patched attention splits every step into four tensors — `q_pre`, `q_post`,
+`k_pre`, `k_post` — and keeps keys in the cold tier **pre-RoPE**, re-rotating them to
+their original positions when they are injected. That is what lets an evicted token
+come back without a corrupted positional encoding.
+
+Per decode step, per layer:
+
+1. Project Q, K, V; apply RoPE; push the pre-RoPE query into a 4-entry pool.
+2. Every 16 steps, hand the pooled query to a background thread, which searches the
+   FAISS index and gathers 64 tokens into a pinned buffer.
+3. A side CUDA stream copies them to the GPU; a ready event says when they have
+   landed. Decode never blocks on either the search or the copy.
+4. Inject the retrieved tokens (RoPE re-applied), attend over hot cache + injected
+   tokens with a Triton kernel, then compress the hot tier if it exceeds the budget,
+   evicting the losers to the CPU ring buffer and the FAISS index.
+
+| Module | Responsibility |
+|---|---|
+| `src/hotcold_kv/patch.py` | Monkeypatches `LlamaAttention.forward`; RoPE re-rotation; injection and masking. |
+| `src/hotcold_kv/controller.py` | `KVController` — cold ring buffer, FAISS index, query pooling, retrieval thread, prefetch staging. |
+| `src/hotcold_kv/cache.py` | `HotColdLayer` — the hot compressed KV and the eviction policy. |
+| `src/hotcold_kv/kernels.py` | Triton fused decode-attention kernel over the masked cache. |
+| `src/hotcold_kv/baselines/` | Standalone SnapKV / PyramidKV / H2O implementations, each with its own cache and attention patch. |
+| `benchmarks/run_baselines.py` | The harness that produced every table above. |
+| `docs/figures/make_fig1.py` | Draws the architecture figure with `python-pptx`. |
+
+See [`docs/OVERVIEW.md`](docs/OVERVIEW.md) for a file-by-file walkthrough and
+[`docs/design.md`](docs/design.md) for the phased design and reference papers.
 
 ## Install
 
 ```bash
-git clone <your-repo-url>
+git clone <repo-url>
 cd hotcold-kv-cache
 pip install -r requirements.txt
 pip install -e .
 ```
 
-The framework patches Llama attention and uses Triton kernels, so a CUDA GPU is
-required to run generation. It was developed against `transformers==4.57.3` and
-`meta-llama/Llama-3.2-1B`; you will need HF access to that model.
+A CUDA GPU is required: the decode path is a Triton kernel and the prefetch uses a
+side CUDA stream. Developed against `transformers==4.57.3`. The benchmarks need HF
+access to `meta-llama/Llama-3.1-8B`.
 
-## Quick start
+## Reproducing the benchmarks
 
-```bash
-python scripts/demo.py
-```
-
-This forces eviction (small hot capacity + a long repeated prompt), installs the
-patched attention, and decodes 256 tokens through the hot/cold cache, printing
-the hot-cache length and cold-store size at the end.
-
-Using it directly:
-
-```python
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
-from hotcold_kv import (
-    KVController, set_active_kvctrl, set_active_rotary_emb,
-    install_monkeypatch, build_hotcold_cache,
-)
-
-model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.2-1B",
-                                             torch_dtype=torch.float16, device_map="cuda")
-tok = AutoTokenizer.from_pretrained("meta-llama/Llama-3.2-1B")
-
-set_active_rotary_emb(model.model.rotary_emb)
-kvctrl = KVController(max_capacity_prompt=128, topk_ratio=0.25, recent_size=32,
-                      cpu_buffer_size=8192, faiss_dim=64, window_size=8,
-                      query_pool_size=4, lookahead_k=32)
-set_active_kvctrl(kvctrl)
-install_monkeypatch(enable_debug=True)
-
-cache = build_hotcold_cache(model, kvctrl)
-inputs = tok("<long prompt>", return_tensors="pt").to(model.device)
-out = model.generate(**inputs, max_new_tokens=256, past_key_values=cache, use_cache=True)
-print(tok.decode(out[0], skip_special_tokens=True))
-```
-
-## Benchmarks
+Point `LONGBENCH_PATH` at a directory of LongBench JSONL files, then:
 
 ```bash
-python benchmarks/run_benchmark.py
+MODEL_NAME=meta-llama/Llama-3.1-8B DATASET=gov_report KV_BUDGET=512 \
+MAX_INPUT_LENGTH=8192 HOLD_RETRIEVED=1 python benchmarks/run_baselines.py
 ```
 
-The harness runs token-by-token decode on LongBench tasks and reports, per task:
+Key environment variables:
 
-- **Perplexity** (token-by-token NLL),
-- **Wall-clock latency** (total and per-token),
-- **Peak GPU memory allocated**.
+| Variable | Default | Meaning |
+|---|---|---|
+| `DATASET` | `multifieldqa_en` | LongBench task name |
+| `KV_BUDGET` | 1024 | GPU token budget per layer |
+| `MAX_INPUT_LENGTH` | 8192 | Prompt truncation |
+| `METHODS` | all five | Comma-separated subset to run |
+| `LOOKAHEAD_K` | 64 | Tokens fetched per retrieval; `0` disables retrieval |
+| `HOLD_RETRIEVED` | 0 | `1` keeps a retrieved set until the next one replaces it |
+| `CPU_BUFFER_SIZE` | 32768 | Cold ring-buffer capacity per layer |
 
-Results are written to a CSV. The benchmark expects the LongBench JSONL files at
-the path in `LONGBENCH_LOCAL_PATH` (defaults to the Kaggle dataset layout,
-`/kaggle/input/longbench-json`); point it at your local copy to run elsewhere.
+`LOOKAHEAD_K=0` and `HOLD_RETRIEVED=1` change the method label and the output
+filename (`hotcold_k0`, `hotcold_hold`), so variants never overwrite each other.
+`scripts/combine_results.py` merges all result CSVs into one comparison table.
 
-## Compression baselines
+## Tests
 
-`src/hotcold_kv/baselines/` implements three standard KV-cache compression methods
-to benchmark the hot/cold framework against. Each is a self-contained KV
-compressor (its own `Cache` + attention monkeypatch, independent of the hot/cold
-`KVController`):
-
-| Method      | Idea | Budget |
-|-------------|------|--------|
-| **SnapKV**    | Score prompt tokens by attention from a recent observation window, pool, keep top-k + recent window. Compresses the prompt at prefill. | flat per layer |
-| **PyramidKV** | Same importance scoring as SnapKV, but allocates a larger budget to early layers and a smaller one to deep layers (pyramidal). | per-layer |
-| **H2O**       | *Heavy-Hitter Oracle*: accumulate attention mass across all queries, keep the heavy hitters + recent window, evicting online during decode. | flat per layer |
-
-Run the comparison harness (same LongBench PPL / latency / memory metrics):
+CPU-only, no GPU or model download needed:
 
 ```bash
-python benchmarks/run_baselines.py
+PYTHONPATH=src python tests/test_baselines.py    # baseline tensor logic
+python tests/test_cold_store.py                  # cold tier / FAISS ring alignment
 ```
 
-The tensor logic (scoring, pooling, GQA reduction, per-head eviction, pyramid
-budgets) is covered by CPU unit tests that need only torch:
-
-```bash
-PYTHONPATH=src python tests/test_baselines.py
-```
-
-## Design targets
-
-- GPU KV memory well below a full cache at long context 
-- minimal accuracy degradation versus the uncompressed baseline,
-- retrieval touching only a small fraction of cold tokens per step,
-
-by tuning the hot-cache budget, the eviction top-k ratio and the look-ahead
-retrieval window. See [`docs/design.md`](docs/design.md) for the full phased
-design and the reference papers (SnapKV, PyramidKV, H2O).
+`tests/test_parity.py` needs a GPU: it checks that with compression and retrieval
+disabled the patched model matches the unpatched one, token for token. Run it before
+trusting any sweep — if parity fails, the benchmarks measure a bug rather than a
+method.
 
 ## License
 

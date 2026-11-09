@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+pyramidkv,hotpotqa,2048,8192,200,6.301524584258322,2.7634756694717324,1.6576371383666992,17.54571771621704

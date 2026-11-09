@@ -29,31 +29,47 @@ from hotcold_kv import (
 # CONFIG
 # -------------------------
 
-MODEL_NAME = "meta-llama/Llama-3.2-1B"
+MODEL_NAME = os.environ.get("MODEL_NAME", "meta-llama/Llama-3.2-1B")
 
 CUDA_OK = torch.cuda.is_available()
 MAIN_DEVICE = torch.device("cuda:0" if CUDA_OK else "cpu")
 
-LONGBENCH_LOCAL_PATH = "/kaggle/input/longbench-json"
+LONGBENCH_LOCAL_PATH = os.environ.get("LONGBENCH_PATH", "/kaggle/input/longbench-json")
 
-TASK_FILE_MAP = {
-    "multifieldqa_en": "multifieldqa_en.jsonl",
-}
+# One LongBench task per run, so jobs can be sharded one per GPU.
+DATASET = os.environ.get("DATASET", "multifieldqa_en")
+TASK_FILE_MAP = {DATASET: f"{DATASET}.jsonl"}
 
-MAX_INPUT_LENGTH   = 4096
-MAX_NEW_TOKENS_LAT = 64
-PPL_MAX_TOKENS     = 4096
+MAX_INPUT_LENGTH   = int(os.environ.get("MAX_INPUT_LENGTH", 8192))
+MAX_NEW_TOKENS_LAT = int(os.environ.get("MAX_NEW_TOKENS_LAT", 64))
+PPL_MAX_TOKENS     = MAX_INPUT_LENGTH
+EVAL_TOKENS        = int(os.environ.get("EVAL_TOKENS", 256))
 
-# Hot/cold settings (tune)
-HOT_CAPACITY = 512
-TOPK_RATIO   = 0.15
-RECENT_SIZE  = 128
+# KV budget = peak hot-cache tokens. The design doc targets 15-20% of the full
+# cache, which at 8k is ~1229-1638 tokens; 1024 and 2048 are the budgets SnapKV
+# and H2O report, so those are the points worth sweeping.
+KV_BUDGET    = int(os.environ.get("KV_BUDGET", 1024))
 
-CPU_BUFFER_SIZE = 8192
-FAISS_DIM       = 64
+HOT_CAPACITY = KV_BUDGET
+RECENT_SIZE  = int(os.environ.get("RECENT_SIZE", 128))
+# Compression retains topk + recent, i.e. ~75% of the budget, leaving headroom
+# so compression does not fire on every decode step.
+TOPK_RATIO   = max(0.05, 0.75 - RECENT_SIZE / HOT_CAPACITY)
+
+# Must exceed the total number of evicted tokens. If the ring buffer wraps while
+# the FAISS index keeps growing, index positions no longer match ring slots and
+# retrieval returns the wrong KV pairs.
+CPU_BUFFER_SIZE = int(os.environ.get("CPU_BUFFER_SIZE", 32768))
+FAISS_DIM       = 128     # = head_dim of Llama-3.1-8B; a smaller value crops the key vector
 WINDOW_SIZE     = 16
 QUERY_POOL_SIZE = 4
-LOOKAHEAD_K     = 32
+# Retrieval budget: the design doc targets ~1% of tokens; 64 is 0.8% at 8k.
+LOOKAHEAD_K     = int(os.environ.get("LOOKAHEAD_K", 64))
+
+# Per-run output, so parallel jobs on different GPUs never overwrite each other.
+RESULTS_DIR = os.environ.get("RESULTS_DIR", "results")
+os.makedirs(RESULTS_DIR, exist_ok=True)
+RUN_TAG = f"{DATASET}_b{KV_BUDGET}_L{MAX_INPUT_LENGTH}"
 
 
 # -------------------------
@@ -205,8 +221,16 @@ def generate_with_hotcold(
 
     
 # ========================================================================================
-# PERPLEXITY: Token-by-token NLL
+# PERPLEXITY: compressed-context continuation
 # ========================================================================================
+# The long prompt is prefilled in one pass (which is where compression happens),
+# then the last EVAL_TOKENS are scored token-by-token against the resulting
+# cache. This isolates the damage compression does.
+#
+# Scoring every token from a cold start instead would average in thousands of
+# early positions where the cache is still tiny and no compression has occurred,
+# measuring position-in-sequence rather than the method. It must stay identical
+# to compute_ppl_press in run_baselines.py or the two are not comparable.
 
 @torch.inference_mode()
 def compute_ppl_like_nll(
@@ -214,6 +238,7 @@ def compute_ppl_like_nll(
     tokenizer,
     text: str,
     kvctrl,
+    eval_tokens=EVAL_TOKENS,
     max_tokens=PPL_MAX_TOKENS,
 ):
     device = _dev(model)
@@ -222,51 +247,40 @@ def compute_ppl_like_nll(
     set_active_kvctrl(kvctrl)
     past_key_values = build_hotcold_cache(model, kvctrl)
 
-    enc = tokenizer(text, return_tensors="pt", truncation=True, max_length=max_tokens)
-    ids = enc["input_ids"].to(device)
-    tok_mask = enc.get("attention_mask", torch.ones_like(ids)).to(device)
-
+    ids = tokenizer(text, return_tensors="pt", truncation=True,
+                    max_length=max_tokens)["input_ids"].to(device)
     T = int(ids.shape[1])
-    if T < 2:
+    if T < 4:
         return float("nan")
 
-    # start attention mask with first token visible
-    attn = tok_mask[:, :1].contiguous()
+    eval_n = min(eval_tokens, T - 2)
+    split = T - eval_n                       # prefill on ids[:split], score ids[split:]
 
     nll_sum = 0.0
     count = 0
 
-    # --- Prefill: first token ---
-    out = model(
-        input_ids=ids[:, :1],
-        attention_mask=attn,
-        use_cache=True,
-        past_key_values=past_key_values,
-    )
-    logits = out.logits[:, -1, :].float()
-    target = ids[:, 1]
-    lp = F.log_softmax(logits, dim=-1)
-    nll_sum += -lp.gather(-1, target.unsqueeze(-1)).squeeze(-1).item()
-    count += 1
+    # --- Prefill the context; compression fires here ---
+    out = model(input_ids=ids[:, :split], use_cache=True, past_key_values=past_key_values)
     past = out.past_key_values
 
-    # --- Decode remaining tokens ---
-    for t in range(1, T - 1):
-        attn = tok_mask[:, : t + 1].contiguous()
-        cache_position = _make_cache_position(attn)
+    # First eval token scored from the full-context prefill logits.
+    logits = out.logits[:, -1, :].float()
+    lp = F.log_softmax(logits, dim=-1)
+    nll_sum += -lp.gather(-1, ids[:, split].unsqueeze(-1)).squeeze(-1).item()
+    count += 1
 
+    # --- Remaining eval tokens scored under the compressed cache ---
+    for t in range(split, T - 1):
+        cache_position = torch.tensor([t], device=device, dtype=torch.long)
         out = model(
             input_ids=ids[:, t : t + 1],
-            attention_mask=attn,          
             cache_position=cache_position,
             past_key_values=past,
             use_cache=True,
         )
-
         logits = out.logits[:, -1, :].float()
-        target = ids[:, t + 1]
         lp = F.log_softmax(logits, dim=-1)
-        nll_sum += -lp.gather(-1, target.unsqueeze(-1)).squeeze(-1).item()
+        nll_sum += -lp.gather(-1, ids[:, t + 1].unsqueeze(-1)).squeeze(-1).item()
         count += 1
         past = out.past_key_values
 
@@ -279,6 +293,10 @@ def compute_ppl_like_nll(
 # MAIN
 # -------------------------
 
+print(f"[cfg] method=hotcold dataset={DATASET} budget={KV_BUDGET} ctx={MAX_INPUT_LENGTH} "
+      f"topk={int(HOT_CAPACITY * TOPK_RATIO)} recent={RECENT_SIZE} "
+      f"retained={int(HOT_CAPACITY * TOPK_RATIO) + RECENT_SIZE} "
+      f"lookahead={LOOKAHEAD_K} cpu_buf={CPU_BUFFER_SIZE}")
 print("CUDA available:", CUDA_OK)
 if CUDA_OK:
     print("CUDA device count:", torch.cuda.device_count())
@@ -397,6 +415,6 @@ print("FINAL RESULTS (HOT/COLD CACHE)")
 print(f"{'='*70}")
 print(df.to_string(index=False))
 
-csv_path = "hotcold_results_triton_possible_fix.csv"
+csv_path = os.path.join(RESULTS_DIR, f"hotcold_{RUN_TAG}.csv")
 df.to_csv(csv_path, index=False)
 print(f"\nSaved → {csv_path}")

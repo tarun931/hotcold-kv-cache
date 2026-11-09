@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+snapkv,gov_report,1024,16384,200,5.910939489615767,2.5009005991775517,1.5957709193229674,19.29856538772583

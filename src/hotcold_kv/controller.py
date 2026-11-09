@@ -25,6 +25,7 @@ class KVController:
         window_size: int = 16,
         query_pool_size: int = 4,
         lookahead_k: int = 32,
+        hold_retrieved: bool = False,
 
         enable_asserts: bool = True,
         profile_overlap: bool = True,
@@ -41,6 +42,10 @@ class KVController:
         self.window_size = int(window_size)
         self.query_pool_size = int(query_pool_size)
         self.lookahead_k = int(lookahead_k)
+        # False: retrieved tokens are attended at the one decode step their copy
+        # lands. True: they stay in attention until the next retrieval replaces
+        # them (held per layer on the GPU).
+        self.hold_retrieved = bool(hold_retrieved)
 
         self.enable_asserts = bool(enable_asserts)
         self.profile_overlap = bool(profile_overlap)
@@ -78,6 +83,7 @@ class KVController:
         self._copy_end_ev: List[Optional[torch.cuda.Event]] = []
 
         self.last_injected_len = 0
+        self.held_mem: List[Optional[Tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]]] = []
 
         self.dbg = {
             "compress_calls": 0,
@@ -93,7 +99,8 @@ class KVController:
             "prefetch_ready": 0,
             "prefetch_skipped_empty": 0,
 
-            "injection_used": 0,
+            "injection_used": 0,       # decode steps that attended retrieved tokens
+            "injection_new": 0,        # hold_retrieved: fresh sets that replaced the held one
             "injection_skipped_no_valid": 0,
 
             "prefetch_copy_ms_sum": 0.0,
@@ -137,6 +144,7 @@ class KVController:
         self._staged_event = [None for _ in range(L)]
         self._copy_start_ev = [None for _ in range(L)]
         self._copy_end_ev = [None for _ in range(L)]
+        self.held_mem = [None for _ in range(L)]
 
         if torch.cuda.is_available():
             self._prefetch_stream = torch.cuda.Stream()
@@ -200,14 +208,28 @@ class KVController:
                 if not new_tokens:
                     continue
 
-                vecs = np.stack([self._k_token_to_vec_np(tok) for tok in new_tokens], axis=0)
-                self.index[li][b].add(vecs)
-                self._num_vecs[li][b] += int(vecs.shape[0])
+                # A batch larger than the ring only keeps its last
+                # cpu_buffer_size tokens; index just those.
+                m = len(new_tokens)
+                keep = min(m, self.cpu_buffer_size)
+                vecs = np.stack([self._k_token_to_vec_np(tok) for tok in new_tokens[m - keep:]], axis=0)
+                index = self.index[li][b]
+                index.add(vecs)
 
-                self.dbg["faiss_add"] += int(vecs.shape[0])
+                # Once full, the ring drops its oldest tokens on append. Drop
+                # the same rows from the index, or every later search returns
+                # ids that point at the wrong ring slots. IndexFlat ids are row
+                # positions and remove_ids keeps the remaining rows in order,
+                # so index row i is ring slot i again.
+                ring_len = len(self.cpu_kpre_ring[li][b])
+                if index.ntotal > ring_len:
+                    index.remove_ids(faiss.IDSelectorRange(0, index.ntotal - ring_len))
+                self._num_vecs[li][b] = int(index.ntotal)
+
+                self.dbg["faiss_add"] += keep
 
                 if self.enable_asserts:
-                    assert self._num_vecs[li][b] == len(self.cpu_kpre_ring[li][b])
+                    assert self._num_vecs[li][b] == ring_len
 
     def update_query_window(self, layer_idx: int, q_pre: torch.Tensor):
         self.query_window[int(layer_idx)].append(q_pre.detach())
@@ -240,7 +262,6 @@ class KVController:
                 n = len(self.cpu_kpre_ring[li][b])
                 if n == 0:
                     continue
-                # ensure index count matches ring (should, unless asserts off and something went wrong)
                 r_eff = min(R, n)
 
                 q = q_vecs[b:b+1].astype("float32", copy=False)
@@ -248,7 +269,7 @@ class KVController:
                 I = I.reshape(-1)
 
                 for j in range(r_eff):
-                    idx = int(I[j])
+                    idx = int(I[j])          # index row == ring slot
                     if idx < 0 or idx >= n:
                         continue
                     kpre_cpu[b, :, j, :].copy_(self.cpu_kpre_ring[li][b][idx], non_blocking=False)

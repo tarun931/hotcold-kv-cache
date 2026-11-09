@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb,hc_evicted_tokens,hc_retrieval_launched,hc_prefetch_launched,hc_prefetch_ready,hc_injection_used
+hotcold_hold,repobench-p,2048,8192,500,2.1406895998490607,0.9535177791978092,2.306854551792145,17.658504962921143,82588160,256000,240010,240010,3828088

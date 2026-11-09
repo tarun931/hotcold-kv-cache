@@ -1,7 +1,8 @@
-torch
-transformers==4.57.3
+torch==2.5.1               # ships its own matching triton; do not install triton separately
+transformers==4.57.3       # the attention monkeypatch targets this version's LlamaAttention.forward
+accelerate                 # required for device_map when loading the model
 faiss-cpu
-triton
 numpy
 pandas
 huggingface_hub
+datasets

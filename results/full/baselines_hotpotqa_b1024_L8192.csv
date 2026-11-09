@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb,ppl_delta_vs_full,ppl_pct_vs_full
+full,hotpotqa,full,8192,200,6.181449401623844,2.757831757958063,1.7432464838027955,18.993793964385986,0.0,0.0

@@ -12,8 +12,10 @@ dist/
 venv/
 env/
 
-# Benchmark outputs
+# Benchmark outputs: scratch CSVs are ignored, but the measured results that
+# back the tables in results/*.md are kept, so every number can be rechecked.
 *.csv
+!results/**/*.csv
 
 # Editor / tooling
 .claude/

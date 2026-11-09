@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb,hc_evicted_tokens,hc_retrieval_launched,hc_prefetch_launched,hc_prefetch_ready,hc_injection_used
+hotcold,hotpotqa,2048,8192,200,6.307202420141748,2.7724588370359804,2.106910684108734,17.651703357696533,38430336,101696,95328,95328,95328

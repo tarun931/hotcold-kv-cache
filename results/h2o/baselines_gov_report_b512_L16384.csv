@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+h2o,gov_report,512,16384,200,6.706277607443179,2.7703114156029782,1.7467958307266236,19.568356037139893

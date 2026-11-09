@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+h2o,repobench-p,512,8192,500,2.9976700804792817,1.5073224036673134,1.7466361989974977,17.328915119171143

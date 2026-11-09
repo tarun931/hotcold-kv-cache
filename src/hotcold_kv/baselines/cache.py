@@ -42,10 +42,14 @@ class PressCacheLayer(CacheLayerMixin):
         return self.state.decode(q_post, k_post, v, n_rep, scaling)
 
     # -- HuggingFace Cache interface ----------------------------------------
+    # CacheLayerMixin declares all five of these abstract; a missing one makes the
+    # class impossible to instantiate. The patched attention drives the state
+    # directly, so lazy_initialization and update only keep the interface whole.
+    def lazy_initialization(self, key_states: torch.Tensor):
+        self.is_initialized = True
+
     def update(self, key_states: torch.Tensor, value_states: torch.Tensor,
-               layer_idx: int = 0, cache_kwargs: Optional[dict[str, Any]] = None):
-        # Unused: the patched attention updates the state directly. Provided so the
-        # object is a well-behaved CacheLayerMixin.
+               cache_kwargs: Optional[dict[str, Any]] = None):
         return self.state.keys, self.state.values
 
     def get_seq_length(self) -> int:

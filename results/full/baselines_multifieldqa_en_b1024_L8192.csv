@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb,ppl_delta_vs_full,ppl_pct_vs_full
+full,multifieldqa_en,full,8192,150,6.2565959910880276,4.230960814714501,1.7105749289194743,18.9894700050354,0.0,0.0

@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb,hc_evicted_tokens,hc_retrieval_launched,hc_prefetch_launched,hc_prefetch_ready,hc_injection_used
+hotcold,multifieldqa_en,2048,8192,150,6.652416660671194,4.320854523229346,2.0955736525853474,17.646687030792236,20547040,70304,65795,65795,65795

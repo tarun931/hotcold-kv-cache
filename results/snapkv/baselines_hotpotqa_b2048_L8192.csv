@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+snapkv,hotpotqa,2048,8192,200,6.277936802623611,2.7529185656371786,1.6567448782920837,17.529682636260986

@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+pyramidkv,gov_report,2048,16384,200,5.738103257835204,2.3943535625510712,1.6572607231140137,19.568127155303955

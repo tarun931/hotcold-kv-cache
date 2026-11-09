@@ -75,6 +75,14 @@ are used to find keys for `t+k`.
   non-blocking D2H (evicted) and H2D (retrieved) transfers overlap with decode.
   The forward pass checks an `is_retrieval_ready` flag and, if set, folds the
   retrieved KV pairs into the attention computation.
+- **Residency of retrieved tokens.** A retrieved set is held per layer on the GPU
+  and stays in attention until the next retrieval replaces it, so it is used for
+  the whole window rather than only at the step its copy lands
+  (`HOLD_RETRIEVED=1`). This is worth far more than the retrieval itself: see
+  Phase 5.
+
+> Status: implemented. Retrieval residency is opt-in via `HOLD_RETRIEVED`; the
+> default remains attend-once so earlier measurements stay reproducible.
 
 ## Phase 4 — Optimization & refinement
 
@@ -89,6 +97,28 @@ are used to find keys for `t+k`.
   asynchronous look-ahead path.
 - **Visualisation.** Attention heatmaps confirming retrieved tokens are attended
   to; latency-vs-accuracy Pareto frontier.
+
+> Status: the retrieval ablation is done and is the project's main finding so
+> far — see [`results/retrieval_ablation.md`](../results/retrieval_ablation.md).
+> Three variants were measured with an identical GPU tier (the evicted-token
+> counts match exactly), on LongBench at 8k with Llama-3.1-8B:
+>
+> | Variant | gov_report, budget 512 |
+> |---|---|
+> | no retrieval (`LOOKAHEAD_K=0`) | 6.139 |
+> | attend once (default) | 6.126 |
+> | held (`HOLD_RETRIEVED=1`) | 6.039 |
+>
+> Attend-once retrieval is nearly worthless: 0.09-0.21% perplexity for about 25%
+> more latency, because a retrieved set was used for one decode step out of
+> sixteen and then dropped. Holding it for the whole window helps in all twelve
+> dataset/budget configurations, by up to 3.18%, and is worth about seven times
+> what attend-once was worth. **How long a retrieved token stays in attention
+> matters more than the retrieval itself.**
+>
+> The no-retrieval run also locates the latency cost: with retrieval off,
+> hot/cold (1.601 s) is faster than the uncompressed reference (1.718 s), so the
+> overhead is the retrieval path, not the Triton kernel or eviction.
 
 ## References
 

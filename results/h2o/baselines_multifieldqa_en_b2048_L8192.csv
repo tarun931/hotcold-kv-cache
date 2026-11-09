@@ -1,0 +1,2 @@
+method,task,budget,ctx,num_samples,avg_ppl,std_ppl,avg_latency_s,max_memory_gb
+h2o,multifieldqa_en,2048,8192,150,6.749617385564206,4.3299065397076495,1.9211195945739745,17.705645084381104
