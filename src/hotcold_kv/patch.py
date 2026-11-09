@@ -223,6 +223,15 @@ def install_monkeypatch(enable_debug: bool = True):
                     },
                 )
 
+        # Prefill has just compressed the hot tier, so this is the first moment
+        # the cold tier holds anything. Retrieving here puts cold tokens in
+        # attention from the first generated token; the scheduled path would not
+        # fire until decode step window_size - 1, by which point a short answer
+        # is already written.
+        if q_len > 1 and kvctrl.retrieve_after_prefill:
+            kvctrl.launch_retrieval_now(self.layer_idx, q_pre[:, :, -kvctrl.query_pool_size:, :])
+            kvctrl.maybe_prefetch_to_gpu(self.layer_idx, device=device, dtype=dtype)
+
         kvctrl.last_injected_len = 0
         inj_len = 0
         rr = None

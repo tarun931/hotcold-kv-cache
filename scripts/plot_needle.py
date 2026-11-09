@@ -23,13 +23,16 @@ from matplotlib.colors import LinearSegmentedColormap
 CMAP = LinearSegmentedColormap.from_list(
     "needle", ["#C0392B", "#E8A33D", "#D8C13A", "#4FA96B", "#2E9E6B"])
 
-LABEL = {"k0": "no retrieval (evict only)", "hold": "held retrieval (CPU tier on)"}
+LABEL = {"k0": "no retrieval (evict only)",
+         "hold": "scheduled retrieval",
+         "prefill": "retrieval from prefill"}
+ORDER = ("k0", "hold", "prefill")
 
 
 def main():
     path = sys.argv[1] if len(sys.argv) > 1 else "results/needle_b1024_L16384.csv"
     df = pd.read_csv(path)
-    variants = [v for v in ("k0", "hold") if v in set(df["variant"])]
+    variants = [v for v in ORDER if v in set(df["variant"])]
     variants += [v for v in sorted(set(df["variant"])) if v not in variants]
 
     lengths = sorted(df["length"].unique())
@@ -66,13 +69,15 @@ def main():
 
     print("\nMean score by variant and length:")
     print(df.groupby(["variant", "length"])["hit"].mean().unstack().round(3).to_string())
-    if {"k0", "hold"} <= set(df["variant"]):
-        k0 = df[df.variant == "k0"].set_index(["length", "depth", "repeat"])["hit"]
-        hd = df[df.variant == "hold"].set_index(["length", "depth", "repeat"])["hit"]
-        both = pd.concat({"k0": k0, "hold": hd}, axis=1).dropna()
-        won = int(((both.k0 == 0) & (both.hold == 1)).sum())
-        lost = int(((both.k0 == 1) & (both.hold == 0)).sum())
-        print(f"\nretrieval won back {won} needles, lost {lost}, out of {len(both)} cells")
+    base = df[df.variant == "k0"].set_index(["length", "depth", "repeat"])["hit"]
+    for other in ("hold", "prefill"):
+        if other not in set(df["variant"]) or "k0" not in set(df["variant"]):
+            continue
+        o = df[df.variant == other].set_index(["length", "depth", "repeat"])["hit"]
+        both = pd.concat({"k0": base, "o": o}, axis=1).dropna()
+        won = int(((both.k0 == 0) & (both.o == 1)).sum())
+        lost = int(((both.k0 == 1) & (both.o == 0)).sum())
+        print(f"{other:8} vs no retrieval: won back {won}, lost {lost}, of {len(both)} cells")
 
 
 if __name__ == "__main__":

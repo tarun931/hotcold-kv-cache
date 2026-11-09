@@ -26,6 +26,7 @@ class KVController:
         query_pool_size: int = 4,
         lookahead_k: int = 32,
         hold_retrieved: bool = False,
+        retrieve_after_prefill: bool = False,
 
         enable_asserts: bool = True,
         profile_overlap: bool = True,
@@ -46,6 +47,10 @@ class KVController:
         # lands. True: they stay in attention until the next retrieval replaces
         # them (held per layer on the GPU).
         self.hold_retrieved = bool(hold_retrieved)
+        # Retrieval normally first fires at decode step window_size - 1, which is
+        # too late for any answer shorter than that. True runs one retrieval at
+        # the end of prefill so the cold tier is represented from token 1.
+        self.retrieve_after_prefill = bool(retrieve_after_prefill)
 
         self.enable_asserts = bool(enable_asserts)
         self.profile_overlap = bool(profile_overlap)
@@ -91,6 +96,7 @@ class KVController:
             "faiss_add": 0,
 
             "retrieval_launched": 0,
+            "retrieval_launched_prefill": 0,
             "retrieval_ready_cpu": 0,
             "retrieval_skipped_no_cold": 0,
             "retrieval_ready_empty": 0,
@@ -285,6 +291,25 @@ class KVController:
                 return
             self._retrieval_ready_cpu[li] = (kpre_cpu, v_cpu, pos_cpu, valid_cpu)
             self.dbg["retrieval_ready_cpu"] += 1
+
+    def launch_retrieval_now(self, layer_idx: int, q_pre: torch.Tensor):
+        """One retrieval, run on the calling thread, outside the window schedule.
+
+        Called at the end of prefill, once the hot tier has compressed and the
+        cold tier finally holds something. It is synchronous on purpose: the
+        result has to be staged before the first token is generated, and there
+        is no decode step to hide a thread behind. One FAISS search per layer is
+        negligible next to the prefill it follows.
+        """
+        if self.lookahead_k <= 0 or not self._inited:
+            return
+        li = int(layer_idx)
+        if self.cold_size(li) == 0:
+            self.dbg["retrieval_skipped_no_cold"] += 1
+            return
+        self._retrieval_worker(li, self._q_to_vecs_np(q_pre))
+        self.dbg["retrieval_launched"] += 1
+        self.dbg["retrieval_launched_prefill"] += 1
 
     def maybe_launch_async_retrieval(self, layer_idx: int):
         if self.lookahead_k <= 0:

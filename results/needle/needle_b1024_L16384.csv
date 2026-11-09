@@ -1,0 +1,913 @@
+variant,length,depth,repeat,prompt_tokens,code,generated,hit,evicted_tokens,injection_used,retrieval_prefill
+k0,1024,0.0,0,1025,7242962,7242962.<|end_of_text|><|begin_of_text|>://www.associatedpress.com/article/201,1,8224,0,0
+k0,1024,0.0,1,1026,6390770,6390770.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,0,0
+k0,1024,0.0,2,1026,5623766,5623766.<|end_of_text|><|begin_of_text|>://www.wikiwand.com/en/Br,1,8256,0,0
+k0,1024,11.0,0,1026,7882221,7882221.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,0,0
+k0,1024,11.0,1,1026,8957181,"8957181.
+
+Question: What is the access code for the Brindle",1,8256,0,0
+k0,1024,11.0,2,1026,6419223,6419223.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,0,0
+k0,1024,22.0,0,1026,8883331,8883331.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,0,0
+k0,1024,22.0,1,1026,2495243,2495243.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,0,0
+k0,1024,22.0,2,1025,7637720,7637720.<|end_of_text|><|begin_of_text|>://www.washingtonpost.com/news/true,1,8224,0,0
+k0,1024,33.0,0,1026,9751196,"9756.
+blower Protection Act of 2017, the Secretary of",0,8256,0,0
+k0,1024,33.0,1,1026,1322352,132235.<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&source,0,8256,0,0
+k0,1024,33.0,2,1026,8978618,8978618.<|end_of_text|><|begin_of_text|>://www.reuters.com/article/us-china,1,8256,0,0
+k0,1024,44.0,0,1026,8453691,8453691.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,0,0
+k0,1024,44.0,1,1025,9805024,"9805024.
+<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-",1,8224,0,0
+k0,1024,44.0,2,1026,4437843,"4437843.
+
+Question: What is the access code for the Brindle",1,8256,0,0
+k0,1024,56.0,0,1026,8907020,"8907020.
+
+ the misdemeanor offense of knowingly making a false statement or representation",1,8256,0,0
+k0,1024,56.0,1,1026,1840022,"1840022.
+Question: What is the access code for the Brindle",1,8256,0,0
+k0,1024,56.0,2,1026,5878542,"5878542.
+<|end_of_text|><|begin_of_text|>://www.cnn.com/2012/",1,8256,0,0
+k0,1024,67.0,0,1026,5359964,"5359964.
+
+Question: What is the access code for the Brindle",1,8256,0,0
+k0,1024,67.0,1,1026,8241959,8241959.<|end_of_text|><|begin_of_text|>://www.sba.gov/content/7a,1,8256,0,0
+k0,1024,67.0,2,1026,8530189,"8530189.
+
+Question: What is the access code for the Brindle",1,8256,0,0
+k0,1024,78.0,0,1026,9364367,"9364367.
+
+Question: What is the access code for the Brindle",1,8256,0,0
+k0,1024,78.0,1,1026,1177542,"1177542.
+
+ into two new positions: the PA project manager and the",1,8256,0,0
+k0,1024,78.0,2,1026,9926159,9926159.<|end_of_text|><|begin_of_text|>://www.quora.com/What-is-the,1,8256,0,0
+k0,1024,89.0,0,1026,4260255,4260255.<|end_of_text|><|begin_of_text|>://www.abcnews.go.com/Politics,1,8256,0,0
+k0,1024,89.0,1,1026,9575608,"9575608.
+
+Question: What is the access code for the Brindle",1,8256,0,0
+k0,1024,89.0,2,1026,2987754,2987754.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=298775,1,8256,0,0
+k0,1024,100.0,0,1025,9926450,9926450.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Find-the,1,8224,0,0
+k0,1024,100.0,1,1025,7500962,"7500962.
+
+Question: What is the access code for the Brindle",1,8224,0,0
+k0,1024,100.0,2,1025,1355478,1355478.<|end_of_text|><|begin_of_text|>://www.bloomberg.com/news/2011,1,8224,0,0
+k0,2048,0.0,0,2050,4214967,"4217.
+
+Question: What is the access code for the Brindlewood",0,41024,0,0
+k0,2048,0.0,1,2050,6989273,1234.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Access-the-,0,41024,0,0
+k0,2048,0.0,2,2050,9800525,9800525.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Access-the,1,41024,0,0
+k0,2048,11.0,0,2049,3613835,1234.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/brindle,0,40992,0,0
+k0,2048,11.0,1,2050,4154901,"1234.
+
+Question: What is the access code for the Brindlewood",0,41024,0,0
+k0,2048,11.0,2,2048,2452778,"245277.
+
+The DRC is a vast, mineral-rich nation with an",0,40960,0,0
+k0,2048,22.0,0,2049,7936747,"7936747.
+<|end_of_text|><|begin_of_text|>://www.reuters.com/article/us-eu",1,40992,0,0
+k0,2048,22.0,1,2050,7834986,"7834.
+
+Question: What is the access code for the Brindlewood",0,41024,0,0
+k0,2048,22.0,2,2050,9580662,9580662.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,41024,0,0
+k0,2048,33.0,0,2050,2394184,2394184.<|end_of_text|><|begin_of_text|>://www.sba.gov/financing-pro,1,41024,0,0
+k0,2048,33.0,1,2050,6515930,1234.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>,0,41024,0,0
+k0,2048,33.0,2,2048,5411504,5411504.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,40960,0,0
+k0,2048,44.0,0,2050,7335627,"7335627.
+<|end_of_text|><|begin_of_text|>://www.nbcnews.com/science/s",1,41024,0,0
+k0,2048,44.0,1,2048,9928624,"9928624.
+<|end_of_text|><|begin_of_text|>://www.kiro7.com/news/local/",1,40960,0,0
+k0,2048,44.0,2,2050,4549834,"4549834.
+NEWLINE_CHAR NEWLINE_CHAR NEWLINE_CHAR NEWLINE",1,41024,0,0
+k0,2048,56.0,0,2049,4167028,"4167028.
+<|end_of_text|><|begin_of_text|>://www.cnn.com/2018/",1,40992,0,0
+k0,2048,56.0,1,2050,4907710,4907710.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,41024,0,0
+k0,2048,56.0,2,2050,2810186,"2810186.
+Explanation: The access code for the Brindlewood vault",1,41024,0,0
+k0,2048,67.0,0,2050,3738787,"373878.
+
+<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>",0,41024,0,0
+k0,2048,67.0,1,2050,9618346,"9618346.
+Question: What is the name of the private security firm",1,41024,0,0
+k0,2048,67.0,2,2050,5790584,5790584.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,41024,0,0
+k0,2048,78.0,0,2035,5187202,"5187202.
+
+Question: What is the access code for the Brindle",1,40544,0,0
+k0,2048,78.0,1,2050,8126204,"8126204.
+water systems were not in compliance with the new standards.",1,41024,0,0
+k0,2048,78.0,2,2050,4729970,4729970.<|end_of_text|><|begin_of_text|>://www.dtic.mil/whs,1,41024,0,0
+k0,2048,89.0,0,2050,8109460,"8109460.
+
+Question: What is the access code for the Brindle",1,41024,0,0
+k0,2048,89.0,1,2050,3907320,"3907320.
+
+Question: What is the access code for the Brindle",1,41024,0,0
+k0,2048,89.0,2,2050,4891217,"4891217.
+Explanation: The access code for the Brindlewood vault",1,41024,0,0
+k0,2048,100.0,0,2049,3073073,3073073.<|end_of_text|><|begin_of_text|>://www.thesmokinggun.com/documents,1,40992,0,0
+k0,2048,100.0,1,2049,7934740,"7934740.
+
+Question: What is the access code for the Brindle",1,40992,0,0
+k0,2048,100.0,2,2049,3830495,3830495.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=383049,1,40992,0,0
+k0,4096,0.0,0,4098,6301376,"630137.
+<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&source",0,106560,0,0
+k0,4096,0.0,1,4098,2645855,2645.<|end_of_text|><|begin_of_text|>://www.wikiwand.com/en/Brindle,0,106560,0,0
+k0,4096,0.0,2,4098,3953487,"3953487.
+
+Question: What is the access code for the Brindle",1,106560,0,0
+k0,4096,11.0,0,4098,6844467,1234.<|end_of_text|><|begin_of_text|>://www.bing.com/search?q=1234,0,106560,0,0
+k0,4096,11.0,1,4098,8869836,"1234.
+
+Question: What is the access code for the Brindlewood",0,106560,0,0
+k0,4096,11.0,2,4098,8446341,8443.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>,0,106560,0,0
+k0,4096,22.0,0,4097,8830653,"8830653.
+
+Question: What is the access code for the Brindle",1,106528,0,0
+k0,4096,22.0,1,4098,6384370,1234.<|end_of_text|><|begin_of_text|>://www.google.com/url?q=https://www.google,0,106560,0,0
+k0,4096,22.0,2,4097,2215819,1234.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=1234&,0,106528,0,0
+k0,4096,33.0,0,4098,5697301,"5697301.
+
+ serving in a combat zone, have led to a debate",1,106560,0,0
+k0,4096,33.0,1,4098,6151998,6151998.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106560,0,0
+k0,4096,33.0,2,4098,6022325,"6021.
+
+Question: What is the access code for the Brindlewood",0,106560,0,0
+k0,4096,44.0,0,4097,5485317,1234.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/brindle,0,106528,0,0
+k0,4096,44.0,1,4096,9212982,921-298-1234.<|end_of_text|><|begin_of_text|>://www.youtube.com/watch?v,0,106496,0,0
+k0,4096,44.0,2,4098,7946514,7946514.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106560,0,0
+k0,4096,56.0,0,4095,8502730,850.<|end_of_text|><|begin_of_text|>://www.legionofdreams.com/br,0,106464,0,0
+k0,4096,56.0,1,4098,2612466,2618.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>,0,106560,0,0
+k0,4096,56.0,2,4096,8984645,"8984645.
+Explanation: The access code for the Brindlewood vault",1,106496,0,0
+k0,4096,67.0,0,4098,4580208,"1234.
+
+Question: What is the access code for the Brindlewood",0,106560,0,0
+k0,4096,67.0,1,4098,9578048,"9578.
+
+Question: What is the access code for the Brindlewood",0,106560,0,0
+k0,4096,67.0,2,4098,4964410,"4960.
+
+Question: What is the access code for the Brindlewood",0,106560,0,0
+k0,4096,78.0,0,4098,2801566,"2800.
+
+Question: What is the access code for the Brindlewood",0,106560,0,0
+k0,4096,78.0,1,4098,4543922,4543922.<|end_of_text|><|begin_of_text|>://www.military.com/daily-news/,1,106560,0,0
+k0,4096,78.0,2,4098,3628843,3623.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg/,0,106560,0,0
+k0,4096,89.0,0,4098,6984951,"6984951.
+<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&r",1,106560,0,0
+k0,4096,89.0,1,4098,6738720,6738720.<|end_of_text|><|begin_of_text|>://www.crsreports.congress.gov/product,1,106560,0,0
+k0,4096,89.0,2,4036,6963789,6963789.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,104576,0,0
+k0,4096,100.0,0,4097,4465642,4465642.<|end_of_text|><|begin_of_text|>://www.english-test.net/et/,1,106528,0,0
+k0,4096,100.0,1,4093,1568683,"1568683.
+
+The access code for the Brindlewood vault is",1,106400,0,0
+k0,4096,100.0,2,4097,5145745,"5145745.
+
+Explanation: The access code for the Brindlewood vault",1,106528,0,0
+k0,8192,0.0,0,8194,1616451,161645.<|end_of_text|><|begin_of_text|>://www.thesaurus.com/browse/brindle,0,237632,0,0
+k0,8192,0.0,1,8194,9473078,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,237632,0,0
+k0,8192,0.0,2,8167,9715361,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-19,0,236768,0,0
+k0,8192,11.0,0,8194,6820199,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,0,0
+k0,8192,11.0,1,8163,3927971,"1234.
+
+Question: What is the access code for the Brindlewood",0,236640,0,0
+k0,8192,11.0,2,8193,4927671,1234.<|end_of_text|><|begin_of_text|>://www.youtube.com/watch?v=6ZQ,0,237600,0,0
+k0,8192,22.0,0,8190,5210059,1234.<|end_of_text|><|begin_of_text|>://www.youtube.com/watch?v=QXZ,0,237504,0,0
+k0,8192,22.0,1,8192,4772148,"1234.
+Question: What is the access code for the Brindlewood",0,237568,0,0
+k0,8192,22.0,2,8194,2738389,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,0,0
+k0,8192,33.0,0,8194,8460499,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,0,0
+k0,8192,33.0,1,8193,9238218,"1234.
+
+Question: What is the access code for the Brindlewood",0,237600,0,0
+k0,8192,33.0,2,8192,7172949,"1234.
+Explanation: The access code for the Brindlewood vault is",0,237568,0,0
+k0,8192,44.0,0,8194,7196375,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,0,0
+k0,8192,44.0,1,8191,4613252,"1234.
+
+Question: What is the access code for the Brindlewood",0,237536,0,0
+k0,8192,44.0,2,8193,4965890,"1234.
+
+Question: What is the access code for the Brindlewood",0,237600,0,0
+k0,8192,56.0,0,8192,9327286,"932-728-932.
+Stumpf on the Senate Banking Committee,",0,237568,0,0
+k0,8192,56.0,1,8192,7240927,"1234.
+
+Question: What is the access code for the Brindlewood",0,237568,0,0
+k0,8192,56.0,2,8193,4184809,"4184809.
+Question: What is the access code for the Brindle",1,237600,0,0
+k0,8192,67.0,0,8194,1107042,"110704.
+Question: What is the access code for the Brindlewood",0,237632,0,0
+k0,8192,67.0,1,8194,1368214,"1369.
+
+Question: What is the access code for the Brindlewood",0,237632,0,0
+k0,8192,67.0,2,8193,9289229,928.<|end_of_text|><|begin_of_text|>://www.cia.gov/library/publications/the-world-f,0,237600,0,0
+k0,8192,78.0,0,8186,1368347,"1368347.
+
+Question: What is the access code for the Brindle",1,237376,0,0
+k0,8192,78.0,1,8194,4689497,"4687.
+<|end_of_text|><|begin_of_text|>://www.reddit.com/r/AskReddit/comments/",0,237632,0,0
+k0,8192,78.0,2,8193,3011159,"3011159.
+Explanation: The access code for the Brindlewood vault",1,237600,0,0
+k0,8192,89.0,0,8189,9149189,"9149189.
+Explanation: The access code for the Brindlewood vault",1,237472,0,0
+k0,8192,89.0,1,8192,2376180,"2378.
+
+Question: What is the access code for the Brindlewood",0,237568,0,0
+k0,8192,89.0,2,8193,3478293,3478293.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/<|end_of_text|>,1,237600,0,0
+k0,8192,100.0,0,8193,2467930,"2467930.
+
+Explanation: The access code for the Brindlewood vault",1,237600,0,0
+k0,8192,100.0,1,8192,5243236,5243236.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,237568,0,0
+k0,8192,100.0,2,8193,3606141,"3606141.
+
+The access code for the Brindlewood vault is",1,237600,0,0
+k0,16384,0.0,0,16324,8843689,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,497792,0,0
+k0,16384,0.0,1,16385,8833631,1234.<|end_of_text|><|begin_of_text|>://www.gamersdecide.com/br,0,499744,0,0
+k0,16384,0.0,2,16386,1679270,1234.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Access-the-,0,499776,0,0
+k0,16384,11.0,0,16386,1559373,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,11.0,1,16384,2428112,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,0,0
+k0,16384,11.0,2,16386,8365715,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-19,0,499776,0,0
+k0,16384,22.0,0,16386,6603875,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,22.0,1,16386,9117287,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,22.0,2,16386,2240365,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,33.0,0,16386,3182671,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,33.0,1,16384,4702462,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-19,0,499712,0,0
+k0,16384,33.0,2,16386,2695616,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,44.0,0,16386,3512226,3512.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,499776,0,0
+k0,16384,44.0,1,16384,2283047,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,0,0
+k0,16384,44.0,2,16381,2313920,"1234.
+
+Question: What is the name of the game?
+Answer:",0,499616,0,0
+k0,16384,56.0,0,16384,7583032,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,0,0
+k0,16384,56.0,1,16386,4858249,"1234.
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,56.0,2,16384,8023845,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,0,0
+k0,16384,67.0,0,16381,6838600,"1234.
+
+Question: What is the access code for the Brindlewood",0,499616,0,0
+k0,16384,67.0,1,16386,2996893,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,67.0,2,16386,9747089,9743.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg/,0,499776,0,0
+k0,16384,78.0,0,16379,9156373,"1234.
+
+Question: What is the access code for the Brindlewood",0,499552,0,0
+k0,16384,78.0,1,16386,6307889,1234.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/brindle,0,499776,0,0
+k0,16384,78.0,2,16386,8726250,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,0,0
+k0,16384,89.0,0,16386,7745664,"7745664.
+<|end_of_text|><|begin_of_text|>://www.cbsnews.com/news/george",1,499776,0,0
+k0,16384,89.0,1,16383,6719666,"671966.
+
+Question: What is the access code for the Brindlewood",0,499680,0,0
+k0,16384,89.0,2,16382,9125911,"912591.
+
+Question: What is the access code for the Brindlewood",0,499648,0,0
+k0,16384,100.0,0,16384,1181268,"1181268.
+
+
+Question: What is the access code for the Brindle",1,499712,0,0
+k0,16384,100.0,1,16384,4819082,"4819082.
+Explanation: The access code for the Brindlewood vault",1,499712,0,0
+k0,16384,100.0,2,16380,5229236,"5229236.
+
+Question: What is the access code for the Brindle",1,499584,0,0
+hold,1024,0.0,0,1025,7242962,7242962.<|end_of_text|><|begin_of_text|>://www.associatedpress.com/article/201,1,8224,8,0
+hold,1024,0.0,1,1026,6390770,6390770.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,6,0
+hold,1024,0.0,2,1026,5623766,5623766.<|end_of_text|><|begin_of_text|>://www.wikiwand.com/en/Br,1,8256,8,0
+hold,1024,11.0,0,1026,7882221,7882221.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,8,0
+hold,1024,11.0,1,1026,8957181,"8957181.
+
+Question: What is the access code for the Brindle",1,8256,8,0
+hold,1024,11.0,2,1026,6419223,6419223.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,6,0
+hold,1024,22.0,0,1026,8883331,8883331.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,6,0
+hold,1024,22.0,1,1026,2495243,2495243.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,8,0
+hold,1024,22.0,2,1025,7637720,7637720.<|end_of_text|><|begin_of_text|>://www.washingtonpost.com/news/true,1,8224,9,0
+hold,1024,33.0,0,1026,9751196,"9756.
+blower Protection Act of 2017, the Secretary of",0,8256,8,0
+hold,1024,33.0,1,1026,1322352,132235.<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&source,0,8256,8,0
+hold,1024,33.0,2,1026,8978618,8978618.<|end_of_text|><|begin_of_text|>://www.reuters.com/article/us-china,1,8256,8,0
+hold,1024,44.0,0,1026,8453691,8453691.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,8,0
+hold,1024,44.0,1,1025,9805024,"9805024.
+<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-",1,8224,6,0
+hold,1024,44.0,2,1026,4437843,"4437843.
+
+Question: What is the access code for the Brindle",1,8256,6,0
+hold,1024,56.0,0,1026,8907020,"8907020.
+
+ the misdemeanor offense of knowingly making a false statement or representation",1,8256,8,0
+hold,1024,56.0,1,1026,1840022,"1840022.
+Question: What is the access code for the Brindle",1,8256,8,0
+hold,1024,56.0,2,1026,5878542,"5878542.
+<|end_of_text|><|begin_of_text|>://www.cnn.com/2012/",1,8256,7,0
+hold,1024,67.0,0,1026,5359964,"5359964.
+
+Question: What is the access code for the Brindle",1,8256,8,0
+hold,1024,67.0,1,1026,8241959,8241959.<|end_of_text|><|begin_of_text|>://www.sba.gov/content/7a,1,8256,8,0
+hold,1024,67.0,2,1026,8530189,"8530189.
+
+Question: What is the access code for the Brindle",1,8256,6,0
+hold,1024,78.0,0,1026,9364367,"9364367.
+
+Question: What is the access code for the Brindle",1,8256,8,0
+hold,1024,78.0,1,1026,1177542,"1177542.
+
+ into two new positions: the PA project manager and the",1,8256,7,0
+hold,1024,78.0,2,1026,9926159,9926159.<|end_of_text|><|begin_of_text|>://www.quora.com/What-is-the,1,8256,7,0
+hold,1024,89.0,0,1026,4260255,4260255.<|end_of_text|><|begin_of_text|>://www.abcnews.go.com/Politics,1,8256,8,0
+hold,1024,89.0,1,1026,9575608,"9575608.
+
+Question: What is the access code for the Brindle",1,8256,6,0
+hold,1024,89.0,2,1026,2987754,2987754.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=298775,1,8256,6,0
+hold,1024,100.0,0,1025,9926450,9926450.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Find-the,1,8224,6,0
+hold,1024,100.0,1,1025,7500962,"7500962.
+
+Question: What is the access code for the Brindle",1,8224,8,0
+hold,1024,100.0,2,1025,1355478,1355478.<|end_of_text|><|begin_of_text|>://www.bloomberg.com/news/2011,1,8224,6,0
+hold,2048,0.0,0,2050,4214967,"4217.
+
+Question: What is the access code for the Brindlewood",0,41024,8,0
+hold,2048,0.0,1,2050,6989273,1234.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Access-the-,0,41024,7,0
+hold,2048,0.0,2,2050,9800525,9800525.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Access-the,1,41024,8,0
+hold,2048,11.0,0,2049,3613835,1234.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/brindle,0,40992,8,0
+hold,2048,11.0,1,2050,4154901,"1234.
+
+Question: What is the access code for the Brindlewood",0,41024,7,0
+hold,2048,11.0,2,2048,2452778,"245277.
+
+The DRC is a vast, mineral-rich nation with an",0,40960,8,0
+hold,2048,22.0,0,2049,7936747,"7936747.
+<|end_of_text|><|begin_of_text|>://www.reuters.com/article/us-eu",1,40992,8,0
+hold,2048,22.0,1,2050,7834986,"7834.
+
+Question: What is the access code for the Brindlewood",0,41024,6,0
+hold,2048,22.0,2,2050,9580662,9580662.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,41024,6,0
+hold,2048,33.0,0,2050,2394184,2394184.<|end_of_text|><|begin_of_text|>://www.sba.gov/financing-pro,1,41024,8,0
+hold,2048,33.0,1,2050,6515930,1234.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>,0,41024,6,0
+hold,2048,33.0,2,2048,5411504,5411504.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,40960,8,0
+hold,2048,44.0,0,2050,7335627,"7335627.
+<|end_of_text|><|begin_of_text|>://www.nbcnews.com/science/s",1,41024,8,0
+hold,2048,44.0,1,2048,9928624,"9928624.
+<|end_of_text|><|begin_of_text|>://www.kiro7.com/news/local/",1,40960,8,0
+hold,2048,44.0,2,2050,4549834,"4549834.
+NEWLINE_CHAR NEWLINE_CHAR NEWLINE_CHAR NEWLINE",1,41024,8,0
+hold,2048,56.0,0,2049,4167028,"4167028.
+<|end_of_text|><|begin_of_text|>://www.cnn.com/2018/",1,40992,6,0
+hold,2048,56.0,1,2050,4907710,4907710.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,41024,6,0
+hold,2048,56.0,2,2050,2810186,"2810186.
+Explanation: The access code for the Brindlewood vault",1,41024,7,0
+hold,2048,67.0,0,2050,3738787,"373878.
+
+<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>",0,41024,6,0
+hold,2048,67.0,1,2050,9618346,"9618346.
+Question: What is the name of the private security firm",1,41024,7,0
+hold,2048,67.0,2,2050,5790584,5790584.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,41024,6,0
+hold,2048,78.0,0,2035,5187202,"5187202.
+
+Question: What is the access code for the Brindle",1,40544,8,0
+hold,2048,78.0,1,2050,8126204,"8126204.
+water systems were not in compliance with the new standards.",1,41024,8,0
+hold,2048,78.0,2,2050,4729970,4729970.<|end_of_text|><|begin_of_text|>://www.dtic.mil/whs,1,41024,7,0
+hold,2048,89.0,0,2050,8109460,"8109460.
+
+Question: What is the access code for the Brindle",1,41024,8,0
+hold,2048,89.0,1,2050,3907320,"3907320.
+
+Question: What is the access code for the Brindle",1,41024,8,0
+hold,2048,89.0,2,2050,4891217,"4891217.
+Explanation: The access code for the Brindlewood vault",1,41024,8,0
+hold,2048,100.0,0,2049,3073073,3073073.<|end_of_text|><|begin_of_text|>://www.thesmokinggun.com/documents,1,40992,8,0
+hold,2048,100.0,1,2049,7934740,"7934740.
+
+Question: What is the access code for the Brindle",1,40992,8,0
+hold,2048,100.0,2,2049,3830495,3830495.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=383049,1,40992,8,0
+hold,4096,0.0,0,4098,6301376,"630137.
+<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&source",0,106560,6,0
+hold,4096,0.0,1,4098,2645855,2645.<|end_of_text|><|begin_of_text|>://www.wikiwand.com/en/Brindle,0,106560,6,0
+hold,4096,0.0,2,4098,3953487,"3953487.
+
+Question: What is the access code for the Brindle",1,106560,6,0
+hold,4096,11.0,0,4098,6844467,1234.<|end_of_text|><|begin_of_text|>://www.bing.com/search?q=1234,0,106560,8,0
+hold,4096,11.0,1,4098,8869836,"1234.
+
+Question: What is the access code for the Brindlewood",0,106560,8,0
+hold,4096,11.0,2,4098,8446341,8443.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>,0,106560,8,0
+hold,4096,22.0,0,4097,8830653,"8830653.
+
+Question: What is the access code for the Brindle",1,106528,6,0
+hold,4096,22.0,1,4098,6384370,1234.<|end_of_text|><|begin_of_text|>://www.google.com/url?q=https://www.google,0,106560,6,0
+hold,4096,22.0,2,4097,2215819,1234.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=1234&,0,106528,8,0
+hold,4096,33.0,0,4098,5697301,"5697301.
+
+ serving in a combat zone, have led to a debate",1,106560,8,0
+hold,4096,33.0,1,4098,6151998,6151998.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106560,8,0
+hold,4096,33.0,2,4098,6022325,"6021.
+
+Question: What is the access code for the Brindlewood",0,106560,6,0
+hold,4096,44.0,0,4097,5485317,1234.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/brindle,0,106528,8,0
+hold,4096,44.0,1,4096,9212982,921-298-1234.<|end_of_text|><|begin_of_text|>://www.youtube.com/watch?v,0,106496,8,0
+hold,4096,44.0,2,4098,7946514,7946514.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106560,6,0
+hold,4096,56.0,0,4095,8502730,850.<|end_of_text|><|begin_of_text|>://www.legionofdreams.com/br,0,106464,8,0
+hold,4096,56.0,1,4098,2612466,2618.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>,0,106560,6,0
+hold,4096,56.0,2,4096,8984645,"8984645.
+Explanation: The access code for the Brindlewood vault",1,106496,6,0
+hold,4096,67.0,0,4098,4580208,"1234.
+
+Question: What is the access code for the Brindlewood",0,106560,8,0
+hold,4096,67.0,1,4098,9578048,"9578.
+
+Question: What is the access code for the Brindlewood",0,106560,8,0
+hold,4096,67.0,2,4098,4964410,"4960.
+
+Question: What is the access code for the Brindlewood",0,106560,7,0
+hold,4096,78.0,0,4098,2801566,"2800.
+
+Question: What is the access code for the Brindlewood",0,106560,6,0
+hold,4096,78.0,1,4098,4543922,4543922.<|end_of_text|><|begin_of_text|>://www.military.com/daily-news/,1,106560,6,0
+hold,4096,78.0,2,4098,3628843,3623.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg/,0,106560,8,0
+hold,4096,89.0,0,4098,6984951,"6984951.
+<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&r",1,106560,6,0
+hold,4096,89.0,1,4098,6738720,6738720.<|end_of_text|><|begin_of_text|>://www.crsreports.congress.gov/product,1,106560,6,0
+hold,4096,89.0,2,4036,6963789,6963789.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,104576,6,0
+hold,4096,100.0,0,4097,4465642,4465642.<|end_of_text|><|begin_of_text|>://www.english-test.net/et/,1,106528,6,0
+hold,4096,100.0,1,4093,1568683,"1568683.
+
+The access code for the Brindlewood vault is",1,106400,8,0
+hold,4096,100.0,2,4097,5145745,"5145745.
+
+Explanation: The access code for the Brindlewood vault",1,106528,6,0
+hold,8192,0.0,0,8194,1616451,161645.<|end_of_text|><|begin_of_text|>://www.thesaurus.com/browse/brindle,0,237632,6,0
+hold,8192,0.0,1,8194,9473078,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,237632,8,0
+hold,8192,0.0,2,8167,9715361,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-19,0,236768,6,0
+hold,8192,11.0,0,8194,6820199,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,8,0
+hold,8192,11.0,1,8163,3927971,"1234.
+
+Question: What is the access code for the Brindlewood",0,236640,6,0
+hold,8192,11.0,2,8193,4927671,1234.<|end_of_text|><|begin_of_text|>://www.youtube.com/watch?v=6ZQ,0,237600,6,0
+hold,8192,22.0,0,8190,5210059,1234.<|end_of_text|><|begin_of_text|>://www.youtube.com/watch?v=QXZ,0,237504,8,0
+hold,8192,22.0,1,8192,4772148,"1234.
+Question: What is the access code for the Brindlewood",0,237568,7,0
+hold,8192,22.0,2,8194,2738389,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,6,0
+hold,8192,33.0,0,8194,8460499,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,8,0
+hold,8192,33.0,1,8193,9238218,"1234.
+
+Question: What is the access code for the Brindlewood",0,237600,8,0
+hold,8192,33.0,2,8192,7172949,"1234.
+Explanation: The access code for the Brindlewood vault is",0,237568,8,0
+hold,8192,44.0,0,8194,7196375,"1234.
+
+Question: What is the access code for the Brindlewood",0,237632,8,0
+hold,8192,44.0,1,8191,4613252,"1234.
+
+Question: What is the access code for the Brindlewood",0,237536,8,0
+hold,8192,44.0,2,8193,4965890,"1234.
+
+Question: What is the access code for the Brindlewood",0,237600,8,0
+hold,8192,56.0,0,8192,9327286,"932-728-932.
+Stumpf on the Senate Banking Committee,",0,237568,7,0
+hold,8192,56.0,1,8192,7240927,"1234.
+
+Question: What is the access code for the Brindlewood",0,237568,8,0
+hold,8192,56.0,2,8193,4184809,"4184809.
+Question: What is the access code for the Brindle",1,237600,8,0
+hold,8192,67.0,0,8194,1107042,"110704.
+Question: What is the access code for the Brindlewood",0,237632,6,0
+hold,8192,67.0,1,8194,1368214,"1369.
+
+Question: What is the access code for the Brindlewood",0,237632,8,0
+hold,8192,67.0,2,8193,9289229,928.<|end_of_text|><|begin_of_text|>://www.cia.gov/library/publications/the-world-f,0,237600,8,0
+hold,8192,78.0,0,8186,1368347,"1368347.
+
+Question: What is the access code for the Brindle",1,237376,7,0
+hold,8192,78.0,1,8194,4689497,"4687.
+<|end_of_text|><|begin_of_text|>://www.reddit.com/r/AskReddit/comments/",0,237632,7,0
+hold,8192,78.0,2,8193,3011159,"3011159.
+Explanation: The access code for the Brindlewood vault",1,237600,6,0
+hold,8192,89.0,0,8189,9149189,"9149189.
+Explanation: The access code for the Brindlewood vault",1,237472,7,0
+hold,8192,89.0,1,8192,2376180,"2378.
+
+Question: What is the access code for the Brindlewood",0,237568,8,0
+hold,8192,89.0,2,8193,3478293,3478293.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/<|end_of_text|>,1,237600,9,0
+hold,8192,100.0,0,8193,2467930,"2467930.
+
+Explanation: The access code for the Brindlewood vault",1,237600,7,0
+hold,8192,100.0,1,8192,5243236,5243236.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,237568,7,0
+hold,8192,100.0,2,8193,3606141,"3606141.
+
+The access code for the Brindlewood vault is",1,237600,6,0
+hold,16384,0.0,0,16324,8843689,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,497792,8,0
+hold,16384,0.0,1,16385,8833631,1234.<|end_of_text|><|begin_of_text|>://www.gamersdecide.com/br,0,499744,8,0
+hold,16384,0.0,2,16386,1679270,1234.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Access-the-,0,499776,8,0
+hold,16384,11.0,0,16386,1559373,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,7,0
+hold,16384,11.0,1,16384,2428112,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,8,0
+hold,16384,11.0,2,16386,8365715,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-19,0,499776,8,0
+hold,16384,22.0,0,16386,6603875,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,6,0
+hold,16384,22.0,1,16386,9117287,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,8,0
+hold,16384,22.0,2,16386,2240365,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,8,0
+hold,16384,33.0,0,16386,3182671,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,6,0
+hold,16384,33.0,1,16384,4702462,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-19,0,499712,6,0
+hold,16384,33.0,2,16386,2695616,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,8,0
+hold,16384,44.0,0,16386,3512226,3512.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,499776,8,0
+hold,16384,44.0,1,16384,2283047,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,8,0
+hold,16384,44.0,2,16381,2313920,"1234.
+
+Question: What is the name of the game?
+Answer:",0,499616,8,0
+hold,16384,56.0,0,16384,7583032,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,10,0
+hold,16384,56.0,1,16386,4858249,"1234.
+Question: What is the access code for the Brindlewood",0,499776,7,0
+hold,16384,56.0,2,16384,8023845,"1234.
+
+Question: What is the access code for the Brindlewood",0,499712,8,0
+hold,16384,67.0,0,16381,6838600,"1234.
+
+Question: What is the access code for the Brindlewood",0,499616,6,0
+hold,16384,67.0,1,16386,2996893,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,6,0
+hold,16384,67.0,2,16386,9747089,9743.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg/,0,499776,8,0
+hold,16384,78.0,0,16379,9156373,"1234.
+
+Question: What is the access code for the Brindlewood",0,499552,7,0
+hold,16384,78.0,1,16386,6307889,1234.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/brindle,0,499776,6,0
+hold,16384,78.0,2,16386,8726250,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,7,0
+hold,16384,89.0,0,16386,7745664,"7745664.
+<|end_of_text|><|begin_of_text|>://www.cbsnews.com/news/george",1,499776,8,0
+hold,16384,89.0,1,16383,6719666,"671966.
+
+Question: What is the access code for the Brindlewood",0,499680,8,0
+hold,16384,89.0,2,16382,9125911,"912591.
+
+Question: What is the access code for the Brindlewood",0,499648,8,0
+hold,16384,100.0,0,16384,1181268,"1181268.
+
+
+Question: What is the access code for the Brindle",1,499712,8,0
+hold,16384,100.0,1,16384,4819082,"4819082.
+Explanation: The access code for the Brindlewood vault",1,499712,8,0
+hold,16384,100.0,2,16380,5229236,"5229236.
+
+Question: What is the access code for the Brindle",1,499584,8,0
+prefill,1024,0.0,0,1025,7242962,7242962.<|end_of_text|><|begin_of_text|>://www.associatedpress.com/apf/,1,8224,512,32
+prefill,1024,0.0,1,1026,6390770,6390770.<|end_of_text|><|begin_of_text|>://www.reddit.com/r/AskReddit/comments,1,8256,512,32
+prefill,1024,0.0,2,1026,5623766,5623766.<|end_of_text|><|begin_of_text|>://www.wikiwand.com/en/Br,1,8256,512,32
+prefill,1024,11.0,0,1026,7882221,7882221.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,512,32
+prefill,1024,11.0,1,1026,8957181,"8957181.
+
+Question: What is the access code for the Brindle",1,8256,512,32
+prefill,1024,11.0,2,1026,6419223,6419223.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,512,32
+prefill,1024,22.0,0,1026,8883331,8883331.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,512,32
+prefill,1024,22.0,1,1026,2495243,2495243.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,512,32
+prefill,1024,22.0,2,1025,7637720,7637720.<|end_of_text|><|begin_of_text|>://www.washingtonpost.com/news/true,1,8224,512,32
+prefill,1024,33.0,0,1026,9751196,"9751196.
+blower Protection Act of 2017, the Secretary",1,8256,512,32
+prefill,1024,33.0,1,1026,1322352,1322352.<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&,1,8256,512,32
+prefill,1024,33.0,2,1026,8978618,8978618.<|end_of_text|><|begin_of_text|>://www.reuters.com/article/us-china,1,8256,512,32
+prefill,1024,44.0,0,1026,8453691,8453691.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,8256,512,32
+prefill,1024,44.0,1,1025,9805024,"9805024.
+<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-",1,8224,512,32
+prefill,1024,44.0,2,1026,4437843,"4437843.
+
+Question: What is the access code for the Brindle",1,8256,512,32
+prefill,1024,56.0,0,1026,8907020,"8907020.
+
+ the misdemeanor offense of knowingly making a false statement or representation",1,8256,512,32
+prefill,1024,56.0,1,1026,1840022,"1840022.
+Question: What is the access code for the Brindle",1,8256,512,32
+prefill,1024,56.0,2,1026,5878542,"5878542.
+<|end_of_text|><|begin_of_text|>://www.cnn.com/2012/",1,8256,512,32
+prefill,1024,67.0,0,1026,5359964,"5359964.
+
+Question: What is the access code for the Brindle",1,8256,512,32
+prefill,1024,67.0,1,1026,8241959,8241959.<|end_of_text|><|begin_of_text|>://www.sba.gov/content/7a,1,8256,512,32
+prefill,1024,67.0,2,1026,8530189,"8530189.
+
+Question: What is the access code for the Brindle",1,8256,512,32
+prefill,1024,78.0,0,1026,9364367,"9364367.
+
+Question: What is the access code for the Brindle",1,8256,512,32
+prefill,1024,78.0,1,1026,1177542,"1177542.
+
+ into two new positions: the PA project manager and the",1,8256,512,32
+prefill,1024,78.0,2,1026,9926159,9926159.<|end_of_text|><|begin_of_text|>://www.quora.com/What-is-the,1,8256,512,32
+prefill,1024,89.0,0,1026,4260255,4260255.<|end_of_text|><|begin_of_text|>://www.abcnews.go.com/Politics,1,8256,512,32
+prefill,1024,89.0,1,1026,9575608,"9575608.
+
+Question: What is the access code for the Brindle",1,8256,512,32
+prefill,1024,89.0,2,1026,2987754,2987754.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=298775,1,8256,512,32
+prefill,1024,100.0,0,1025,9926450,9926450.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Find-the,1,8224,512,32
+prefill,1024,100.0,1,1025,7500962,"7500962.
+
+Question: What is the access code for the Brindle",1,8224,512,32
+prefill,1024,100.0,2,1025,1355478,1355478.<|end_of_text|><|begin_of_text|>://www.bloomberg.com/news/2011,1,8224,512,32
+prefill,2048,0.0,0,2050,4214967,"4214967.
+
+Question: What is the access code for the Brindle",1,41024,512,32
+prefill,2048,0.0,1,2050,6989273,6989273.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,41024,512,32
+prefill,2048,0.0,2,2050,9800525,9800525.<|end_of_text|><|begin_of_text|>://www.wikihow.com/Access-the,1,41024,512,32
+prefill,2048,11.0,0,2049,3613835,3613835.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,40992,512,32
+prefill,2048,11.0,1,2050,4154901,"4154901.
+
+ 2015, the agency has made several changes to",1,41024,512,32
+prefill,2048,11.0,2,2048,2452778,"2452778.
+
+The DRC is a vast, mineral-rich nation with",1,40960,512,32
+prefill,2048,22.0,0,2049,7936747,"7936747.
+<|end_of_text|><|begin_of_text|>://www.reuters.com/article/us-eu",1,40992,512,32
+prefill,2048,22.0,1,2050,7834986,"7834986.
+
+The Navy's shipbuilding plan calls for procuring three",1,41024,512,32
+prefill,2048,22.0,2,2050,9580662,9580662.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,41024,512,32
+prefill,2048,33.0,0,2050,2394184,2394184.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,41024,512,32
+prefill,2048,33.0,1,2050,6515930,6515930.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,41024,512,32
+prefill,2048,33.0,2,2048,5411504,5411504.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,40960,512,32
+prefill,2048,44.0,0,2050,7335627,"7335627.
+Question: What is the access code for the Brindle",1,41024,512,32
+prefill,2048,44.0,1,2048,9928624,"9928624.
+<|end_of_text|><|begin_of_text|>://www.king5.com/article/news/local",1,40960,512,32
+prefill,2048,44.0,2,2050,4549834,"4549834.
+NEWLINE_CHAR NEWLINE_CHAR NEWLINE_CHAR NEWLINE",1,41024,512,32
+prefill,2048,56.0,0,2049,4167028,"4167028.
+<|end_of_text|><|begin_of_text|>://www.cnn.com/2018/",1,40992,512,32
+prefill,2048,56.0,1,2050,4907710,4907710.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,41024,512,32
+prefill,2048,56.0,2,2050,2810186,"2810186.
+Explanation: The access code for the Brindlewood vault",1,41024,512,32
+prefill,2048,67.0,0,2050,3738787,"3738787.
+
+<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>",1,41024,512,32
+prefill,2048,67.0,1,2050,9618346,"9618346.
+Question: What is the name of the private security firm",1,41024,512,32
+prefill,2048,67.0,2,2050,5790584,5790584.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,41024,512,32
+prefill,2048,78.0,0,2035,5187202,"5187202.
+
+Question: What is the access code for the Brindle",1,40544,512,32
+prefill,2048,78.0,1,2050,8126204,8126204.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,41024,512,32
+prefill,2048,78.0,2,2050,4729970,4729970.<|end_of_text|><|begin_of_text|>://www.dtic.mil/whs,1,41024,512,32
+prefill,2048,89.0,0,2050,8109460,"8109460.
+
+Question: What is the access code for the Brindle",1,41024,512,32
+prefill,2048,89.0,1,2050,3907320,"3907320.
+
+Question: What is the access code for the Brindle",1,41024,512,32
+prefill,2048,89.0,2,2050,4891217,"4891217.
+Explanation: NEWLINE_CHAR NEWLINE_CHAR The access code",1,41024,512,32
+prefill,2048,100.0,0,2049,3073073,3073073.<|end_of_text|><|begin_of_text|>://www.thesmokinggun.com/documents,1,40992,512,32
+prefill,2048,100.0,1,2049,7934740,"7934740.
+
+Question: What is the access code for the Brindle",1,40992,512,32
+prefill,2048,100.0,2,2049,3830495,3830495.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=383049,1,40992,512,32
+prefill,4096,0.0,0,4098,6301376,"6301376.
+<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&",1,106560,512,32
+prefill,4096,0.0,1,4098,2645855,2645855.<|end_of_text|><|begin_of_text|>://www.wikiwand.com/en/Br,1,106560,512,32
+prefill,4096,0.0,2,4098,3953487,"3953487.
+
+Question: What is the access code for the Brindle",1,106560,512,32
+prefill,4096,11.0,0,4098,6844467,6844467.<|end_of_text|><|begin_of_text|>://www.wsj.com/articles/israel-h,1,106560,512,32
+prefill,4096,11.0,1,4098,8869836,"8869836.
+
+Question: What is the access code for the Brindle",1,106560,512,32
+prefill,4096,11.0,2,4098,8446341,8446341.<|end_of_text|><|begin_of_text|>://www.cia.gov/library/publications/the,1,106560,512,32
+prefill,4096,22.0,0,4097,8830653,"8830653.
+
+Question: What is the access code for the Brindle",1,106528,512,32
+prefill,4096,22.0,1,4098,6384370,"12345678.
+
+Question: What is the access code for the Brindle",0,106560,512,32
+prefill,4096,22.0,2,4097,2215819,2215819.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106528,512,32
+prefill,4096,33.0,0,4098,5697301,"5697301.
+
+ serving in a combat zone, have led to a debate",1,106560,512,32
+prefill,4096,33.0,1,4098,6151998,6151998.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106560,512,32
+prefill,4096,33.0,2,4098,6022325,"6022325.
+
+Question: What is the access code for the Brindle",1,106560,512,32
+prefill,4096,44.0,0,4097,5485317,5487317.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/br,0,106528,512,32
+prefill,4096,44.0,1,4096,9212982,"9212982.
+Question: What is the name of the organization that provides",1,106496,512,32
+prefill,4096,44.0,2,4098,7946514,7946514.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106560,512,32
+prefill,4096,56.0,0,4095,8502730,8502730.<|end_of_text|><|begin_of_text|>://www.legionofdreams.com,1,106464,512,32
+prefill,4096,56.0,1,4098,2612466,2612466.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,106560,512,32
+prefill,4096,56.0,2,4096,8984645,"8984645.
+Explanation: The access code for the Brindlewood vault",1,106496,512,32
+prefill,4096,67.0,0,4098,4580208,"4580208.
+
+Question: What is the access code for the Brindle",1,106560,512,32
+prefill,4096,67.0,1,4098,9578048,9578048.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,106560,512,32
+prefill,4096,67.0,2,4098,4964410,"4964410.
+
+Question: What is the access code for the Brindle",1,106560,512,32
+prefill,4096,78.0,0,4098,2801566,"2801566.
+
+Question: What is the access code for the Brindle",1,106560,512,32
+prefill,4096,78.0,1,4098,4543922,4543922.<|end_of_text|><|begin_of_text|>://www.military.com/daily-news/,1,106560,512,32
+prefill,4096,78.0,2,4098,3628843,3628843.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,106560,512,32
+prefill,4096,89.0,0,4098,6984951,"6984951.
+<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&r",1,106560,512,32
+prefill,4096,89.0,1,4098,6738720,6738720.<|end_of_text|><|begin_of_text|>://www.crsreports.congress.gov/product,1,106560,512,32
+prefill,4096,89.0,2,4036,6963789,6963789.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,104576,512,32
+prefill,4096,100.0,0,4097,4465642,4465642.<|end_of_text|><|begin_of_text|>://www.english-test.net/et/,1,106528,512,32
+prefill,4096,100.0,1,4093,1568683,"1568683.
+
+The access code for the Brindlewood vault is",1,106400,512,32
+prefill,4096,100.0,2,4097,5145745,"5145745.
+
+Explanation: The access code for the Brindlewood vault",1,106528,512,32
+prefill,8192,0.0,0,8194,1616451,1616451.<|end_of_text|><|begin_of_text|>://www.google.com/url?sa=t&,1,237632,512,32
+prefill,8192,0.0,1,8194,9473078,9473.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,237632,512,32
+prefill,8192,0.0,2,8167,9715361,9715361.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,236768,512,32
+prefill,8192,11.0,0,8194,6820199,"6820199.
+
+Question: What is the access code for the Brindle",1,237632,512,32
+prefill,8192,11.0,1,8163,3927971,"3927911.
+
+Question: What is the access code for the Brindle",0,236640,512,32
+prefill,8192,11.0,2,8193,4927671,4927671.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|><|begin_of_text|>://www.<|end_of_text|>,1,237600,512,32
+prefill,8192,22.0,0,8190,5210059,"12345678.
+
+ of the FTC Act's authority—and the FTC's role",0,237504,512,32
+prefill,8192,22.0,1,8192,4772148,"4772148.
+Question: What is the access code for the Brindle",1,237568,512,32
+prefill,8192,22.0,2,8194,2738389,"2738389.
+
+Question: What is the access code for the Brindle",1,237632,512,32
+prefill,8192,33.0,0,8194,8460499,"12345678.
+
+Question: What is the access code for the Brindle",0,237632,512,32
+prefill,8192,33.0,1,8193,9238218,"9238218.
+
+with EEOC are referred to OFCCP for",1,237600,512,32
+prefill,8192,33.0,2,8192,7172949,"717294.
+<|end_of_text|><|begin_of_text|>://www.sfgate.com/news/article/Feds",0,237568,512,32
+prefill,8192,44.0,0,8194,7196375,"7196375.
+
+Question: What is the access code for the Brindle",1,237632,512,32
+prefill,8192,44.0,1,8191,4613252,"4613252.
+
+Question: What is the access code for the Brindle",1,237536,512,32
+prefill,8192,44.0,2,8193,4965890,"4965890.
+
+Question: What is the access code for the Brindle",1,237600,512,32
+prefill,8192,56.0,0,8192,9327286,"9327286.
+Stumpf on the Senate Banking Committee, Warren said",1,237568,512,32
+prefill,8192,56.0,1,8192,7240927,"7240927.
+
+Question: What is the access code for the Brindle",1,237568,512,32
+prefill,8192,56.0,2,8193,4184809,"4184809.
+Question: What is the access code for the Brindle",1,237600,512,32
+prefill,8192,67.0,0,8194,1107042,"1107042.
+Question: What is the access code for the Brindle",1,237632,512,32
+prefill,8192,67.0,1,8194,1368214,"1368214.
+
+Question: What is the access code for the Brindle",1,237632,512,32
+prefill,8192,67.0,2,8193,9289229,9289229.<|end_of_text|><|begin_of_text|>://www.cia.gov/library/publications/the,1,237600,512,32
+prefill,8192,78.0,0,8186,1368347,"1368347.
+
+Question: What is the access code for the Brindle",1,237376,512,32
+prefill,8192,78.0,1,8194,4689497,4689497.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,237632,512,32
+prefill,8192,78.0,2,8193,3011159,"3011159.
+Explanation: The access code for the Brindlewood vault",1,237600,512,32
+prefill,8192,89.0,0,8189,9149189,"9149189.
+Explanation: The access code for the Brindlewood vault",1,237472,512,32
+prefill,8192,89.0,1,8192,2376180,"2376180.
+
+Question: What is the access code for the Brindle",1,237568,512,32
+prefill,8192,89.0,2,8193,3478293,3478293.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/<|end_of_text|>,1,237600,512,32
+prefill,8192,100.0,0,8193,2467930,"2467930.
+
+Explanation: The access code for the Brindlewood vault",1,237600,512,32
+prefill,8192,100.0,1,8192,5243236,5243236.<|end_of_text|><|begin_of_text|>://www.gpo.gov/fdsys/pkg,1,237568,512,32
+prefill,8192,100.0,2,8193,3606141,"3606141.
+
+The access code for the Brindlewood vault is",1,237600,512,32
+prefill,16384,0.0,0,16324,8843689,1234.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-18,0,497792,512,32
+prefill,16384,0.0,1,16385,8833631,8836.<|end_of_text|><|begin_of_text|>://www.gamersdecide.com/br,0,499744,512,32
+prefill,16384,0.0,2,16386,1679270,123456.<|end_of_text|><|begin_of_text|>://www.google.com/search?q=brindlewood,0,499776,512,32
+prefill,16384,11.0,0,16386,1559373,"123456.
+
+Question: What is the access code for the Brindlewood",0,499776,512,32
+prefill,16384,11.0,1,16384,2428112,"123456.
+
+Question: What is the access code for the Brindlewood",0,499712,512,32
+prefill,16384,11.0,2,16386,8365715,"1234567890.
+Question: What is the access code for the Br",0,499776,512,32
+prefill,16384,22.0,0,16386,6603875,"1234.
+
+Question: What is the access code for the Brindlewood",0,499776,512,32
+prefill,16384,22.0,1,16386,9117287,"911728.
+
+Question: What is the access code for the Brindlewood",0,499776,512,32
+prefill,16384,22.0,2,16386,2240365,"2240365.
+
+Question: What is the access code for the Brindle",1,499776,512,32
+prefill,16384,33.0,0,16386,3182671,"3182671.
+
+Question: What is the access code for the Brindle",1,499776,512,32
+prefill,16384,33.0,1,16384,4702462,"123456.
+
+Question: What is the access code for the Brindlewood",0,499712,512,32
+prefill,16384,33.0,2,16386,2695616,"270.
+
+Question: What is the access code for the Brindlewood vault",0,499776,512,32
+prefill,16384,44.0,0,16386,3512226,3512226.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,499776,512,32
+prefill,16384,44.0,1,16384,2283047,"2283047.
+
+Question: What is the access code for the Brindle",1,499712,512,32
+prefill,16384,44.0,2,16381,2313920,"2314920.
+
+Question: What is the access code for the Brindle",0,499616,512,32
+prefill,16384,56.0,0,16384,7583032,"7583032.
+
+Question: What is the access code for the Brindle",1,499712,512,32
+prefill,16384,56.0,1,16386,4858249,"4858249.
+Explanation: The access code for the Brindlewood vault",1,499776,512,32
+prefill,16384,56.0,2,16384,8023845,"123456.
+
+Question: What is the access code for the Brindlewood",0,499712,512,32
+prefill,16384,67.0,0,16381,6838600,"123456.
+
+Question: What is the access code for the Brindlewood",0,499616,512,32
+prefill,16384,67.0,1,16386,2996893,"1234567890.
+
+Question: What is the access code for the Br",0,499776,512,32
+prefill,16384,67.0,2,16386,9747089,9747089.<|end_of_text|><|begin_of_text|>://www.gao.gov/products/GAO-,1,499776,512,32
+prefill,16384,78.0,0,16379,9156373,"9156373.
+
+Question: What is the access code for the Brindle",1,499552,512,32
+prefill,16384,78.0,1,16386,6307889,123456789.<|end_of_text|><|begin_of_text|>://www.brindlewoodbay.com/br,0,499776,512,32
+prefill,16384,78.0,2,16386,8726250,"8726250.
+
+Question: What is the access code for the Brindle",1,499776,512,32
+prefill,16384,89.0,0,16386,7745664,"7745664.
+<|end_of_text|><|begin_of_text|>://www.cbsnews.com/news/george",1,499776,512,32
+prefill,16384,89.0,1,16383,6719666,"6719665.
+
+Question: What is the access code for the Brindle",0,499680,512,32
+prefill,16384,89.0,2,16382,9125911,"9125911.
+
+Question: What is the access code for the Brindle",1,499648,512,32
+prefill,16384,100.0,0,16384,1181268,"1181268.
+
+
+Question: What is the access code for the Brindle",1,499712,512,32
+prefill,16384,100.0,1,16384,4819082,"4819082.
+Explanation: The access code for the Brindlewood vault",1,499712,512,32
+prefill,16384,100.0,2,16380,5229236,"5229236.
+
+Question: What is the access code for the Brindle",1,499584,512,32

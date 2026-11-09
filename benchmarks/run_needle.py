@@ -9,7 +9,12 @@ SnapKV figure shows, and it is green almost everywhere. The point is what the
 CPU tier buys, so the default is to run two hot/cold variants over the same grid:
 
     k0      LOOKAHEAD_K=0, evict to the CPU tier but never fetch anything back
-    hold    HOLD_RETRIEVED=1, fetch and keep the retrieved tokens in attention
+    hold    fetch on the normal schedule and keep the retrieved tokens
+    prefill hold, plus one retrieval at the end of prefill
+
+The third variant exists because the scheduled path first fires at decode step
+window_size - 1. A needle answer is about seven tokens, so without a prefill
+retrieval the cold tier cannot affect the answer at all.
 
 A cell that fails under k0 and passes under hold is a needle the cold tier won
 back. If both variants pass everywhere the test does not bite: the needle is
@@ -57,7 +62,7 @@ DEPTHS = [float(x) for x in os.environ.get("DEPTHS", "0,11,22,33,44,56,67,78,89,
 # score in a cell is the fraction passed.
 REPEATS = int(os.environ.get("REPEATS", 3))
 
-VARIANTS = os.environ.get("NEEDLE_VARIANTS", "k0,hold").split(",")
+VARIANTS = os.environ.get("NEEDLE_VARIANTS", "k0,hold,prefill").split(",")
 KV_BUDGET = int(os.environ.get("KV_BUDGET", 1024))
 RECENT_SIZE = int(os.environ.get("RECENT_SIZE", 128))
 TOPK_RATIO = max(0.05, 0.75 - RECENT_SIZE / KV_BUDGET)
@@ -127,7 +132,7 @@ def build_prompt(tokenizer, filler_ids, length, depth_pct, code, rng):
     return ids, needle
 
 
-def make_controller():
+def make_controller(lookahead, retrieve_after_prefill):
     return KVController(
         max_capacity_prompt=KV_BUDGET,
         topk_ratio=TOPK_RATIO,
@@ -136,8 +141,9 @@ def make_controller():
         faiss_dim=FAISS_DIM,
         window_size=RETRIEVAL_WINDOW,
         query_pool_size=QUERY_POOL_SIZE,
-        lookahead_k=LOOKAHEAD_K,
+        lookahead_k=lookahead,
         hold_retrieved=True,
+        retrieve_after_prefill=retrieve_after_prefill,
         enable_asserts=False,
         profile_overlap=False,
         force_wait_for_prefetch_diagnostic=False,
@@ -196,6 +202,7 @@ def main():
     try:
         for variant in VARIANTS:
             lookahead = 0 if variant == "k0" else LOOKAHEAD_K
+            after_prefill = variant == "prefill"
             for length in LENGTHS:
                 for depth in DEPTHS:
                     hits = 0
@@ -206,8 +213,7 @@ def main():
                         code = f"{rng.randrange(1_000_000, 9_999_999)}"
                         ids, needle = build_prompt(tokenizer, filler_ids, length, depth, code, rng)
 
-                        kvctrl = make_controller()
-                        kvctrl.lookahead_k = lookahead
+                        kvctrl = make_controller(lookahead, after_prefill)
                         cache = build_hotcold_cache(model, kvctrl)
                         toks = generate(model, ids, cache, kvctrl, MAX_NEW_TOKENS)
                         text = tokenizer.decode(toks)
@@ -220,6 +226,7 @@ def main():
                             "code": code, "generated": text.strip()[:120], "hit": int(ok),
                             "evicted_tokens": int(kvctrl.dbg["evicted_tokens"]),
                             "injection_used": int(kvctrl.dbg["injection_used"]),
+                            "retrieval_prefill": int(kvctrl.dbg["retrieval_launched_prefill"]),
                         })
                         del cache, kvctrl
                         gc.collect()
